@@ -9,8 +9,8 @@ export default function Home() {
       <header className="w-full z-20 bg-background/80 backdrop-blur-sm border-b border-border/20 px-6 md:px-8 py-3">
         <div className="container mx-auto">
           <div className="text-left">
-            <div className="font-caveat text-3xl md:text-4xl text-primary leading-none">Freedom</div>
-            <div className="text-xs md:text-sm text-muted-foreground font-light tracking-wide">from knee pain</div>
+            <div className="font-caveat text-4xl md:text-5xl text-primary leading-none">Freedom</div>
+            <div className="text-sm md:text-base text-muted-foreground font-light tracking-wide">from knee pain</div>
           </div>
         </div>
       </header>
