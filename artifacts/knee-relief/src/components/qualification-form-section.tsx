@@ -238,7 +238,7 @@ export function QualificationFormSection() {
 
                     <div className="pt-6">
                       <Button type="submit" size="lg" className="w-full text-lg rounded-full py-8 bg-accent text-accent-foreground hover:bg-accent/90 hover:scale-[1.02] transition-transform">
-                        See If You Qualify
+                        Submit
                       </Button>
                     </div>
                   </form>
