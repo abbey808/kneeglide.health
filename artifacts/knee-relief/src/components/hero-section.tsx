@@ -34,20 +34,22 @@ export function HeroSection() {
         <div className="z-10 space-y-8 max-w-2xl">
           <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
             Less knee pain, <br />
-            <span className="text-primary">more </span>
-            <span className="relative inline-block w-full h-[1.2em] overflow-hidden align-bottom">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  key={index}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -50, opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="absolute left-0 font-caveat text-secondary text-6xl md:text-8xl"
-                >
-                  {activities[index].word}
-                </motion.span>
-              </AnimatePresence>
+            <span className="whitespace-nowrap">
+              <span className="text-primary">more </span>
+              <span className="relative inline-block w-[13ch] h-[1.2em] overflow-hidden align-bottom">
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={index}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -50, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="absolute left-0 font-caveat text-secondary text-6xl md:text-8xl whitespace-nowrap"
+                  >
+                    {activities[index].word}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed max-w-lg">
