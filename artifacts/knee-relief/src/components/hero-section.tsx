@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +11,84 @@ const activities = [
   { word: "biking", image: "/images/biking.png" },
   { word: "dancing", image: "/images/dancing.png" },
 ];
+
+function ImageGrid() {
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const [activeIndices, setActiveIndices] = useState<Set<number>>(new Set([0, 3, 5]));
+
+  const rotateActive = useCallback(() => {
+    setActiveIndices((prev) => {
+      const next = new Set(prev);
+      const allIndices = Array.from({ length: activities.length }, (_, i) => i);
+      const currentActive = Array.from(prev);
+      const currentInactive = allIndices.filter((i) => !prev.has(i));
+
+      if (currentActive.length > 0 && currentInactive.length > 0) {
+        const removeIdx = currentActive[Math.floor(Math.random() * currentActive.length)];
+        const addIdx = currentInactive[Math.floor(Math.random() * currentInactive.length)];
+        next.delete(removeIdx);
+        next.add(addIdx);
+      }
+
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(rotateActive, 1800);
+    return () => clearInterval(timer);
+  }, [rotateActive]);
+
+  const gridPositions = [
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+  ];
+
+  return (
+    <div className="grid grid-cols-3 grid-rows-3 gap-3 w-full h-full p-2">
+      {activities.map((activity, i) => {
+        const isActive = activeIndices.has(i);
+        return (
+          <motion.div
+            key={activity.word}
+            className={`${gridPositions[i]} relative rounded-2xl overflow-hidden flex items-center justify-center`}
+            animate={{
+              filter: isActive ? "blur(0px)" : "blur(4px)",
+              opacity: isActive ? 1 : 0.35,
+              scale: isActive ? 1.02 : 0.95,
+            }}
+            transition={{
+              duration: 1.2,
+              ease: "easeInOut",
+            }}
+          >
+            <img
+              src={`${basePath}${activity.image}`}
+              alt={activity.word}
+              className="w-full h-full object-contain p-1"
+            />
+            <motion.div
+              className="absolute bottom-1 left-0 right-0 text-center"
+              animate={{
+                opacity: isActive ? 1 : 0,
+              }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            >
+              <span className="font-caveat text-sm md:text-base text-muted-foreground/70">
+                {activity.word}
+              </span>
+            </motion.div>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
 
 export function HeroSection() {
   const [index, setIndex] = useState(0);
@@ -25,8 +103,6 @@ export function HeroSection() {
   const scrollToForm = () => {
     document.getElementById("qualification-form")?.scrollIntoView({ behavior: "smooth" });
   };
-
-  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   return (
     <section className="relative flex flex-col justify-center overflow-hidden py-16 md:py-24">
@@ -67,24 +143,9 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="relative h-[350px] lg:h-[450px] flex items-center justify-center z-10">
-          <div className="absolute inset-0 bg-secondary/10 rounded-[100%] blur-3xl" />
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              initial={{ scale: 0.85, opacity: 0, rotate: -5 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 0.85, opacity: 0, rotate: 5 }}
-              transition={{ duration: 0.5, ease: "backOut" }}
-              className="w-72 h-72 md:w-96 md:h-96 relative"
-            >
-              <img
-                src={`${basePath}${activities[index].image}`}
-                alt={activities[index].word}
-                className="w-full h-full object-contain drop-shadow-md"
-              />
-            </motion.div>
-          </AnimatePresence>
+        <div className="relative h-[400px] lg:h-[500px] z-10">
+          <div className="absolute inset-0 bg-secondary/5 rounded-3xl" />
+          <ImageGrid />
         </div>
       </div>
     </section>
