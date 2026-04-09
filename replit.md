@@ -16,6 +16,17 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### Knee Relief Landing Page (`artifacts/knee-relief`)
+- **Type**: React + Vite (presentation-first, no backend)
+- **Preview path**: `/`
+- **Description**: Single-page landing page for knee pain relief referral funnel (GAE treatment)
+- **Sections**: Hero with cycling activity text + colored pencil SVG illustrations, pain types cards, qualification form
+- **Fonts**: Caveat (handwritten headlines), Nunito (body text)
+- **Theme**: Warm cream/sage green/coral palette with colored pencil sketch aesthetic
+- **Dependencies**: framer-motion (animations), react-hook-form + zod (form validation), shadcn/ui components
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages
@@ -23,5 +34,6 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
+- `pnpm --filter @workspace/knee-relief run dev` — run knee relief landing page locally
 
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.

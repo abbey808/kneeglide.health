@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Knee Relief Landing Page"
+version = "1.0.0"
+id = "artifacts/knee-relief"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20150
+
+[services.development]
+run = "pnpm --filter @workspace/knee-relief run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/knee-relief", "run", "build" ]
+publicDir = "artifacts/knee-relief/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20150"
+BASE_PATH = "/"
