@@ -174,3 +174,45 @@
 .sketch-fill {
   filter: url(#pencil-texture-fill);
 }
+
+button,
+a,
+input[type="radio"],
+input[type="checkbox"],
+input[type="submit"],
+label[for],
+select,
+[role="button"],
+[role="radio"],
+[role="checkbox"] {
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+  cursor: text;
+}
+
+button,
+[role="button"] {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover,
+[role="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active,
+[role="button"]:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
