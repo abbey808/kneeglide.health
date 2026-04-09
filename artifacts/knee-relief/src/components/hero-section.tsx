@@ -50,17 +50,17 @@ function ImageGrid() {
   ];
 
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-3 w-full h-full p-2">
+    <div className="grid grid-cols-3 grid-rows-3 gap-1 w-full h-full">
       {activities.map((activity, i) => {
         const isActive = activeIndices.has(i);
         return (
           <motion.div
             key={activity.word}
-            className={`${gridPositions[i]} relative rounded-2xl overflow-hidden flex items-center justify-center`}
+            className={`${gridPositions[i]} relative overflow-hidden flex items-center justify-center`}
             animate={{
               filter: isActive ? "blur(0px)" : "blur(4px)",
               opacity: isActive ? 1 : 0.35,
-              scale: isActive ? 1.02 : 0.95,
+              scale: isActive ? 1.05 : 0.95,
             }}
             transition={{
               duration: 1.2,
@@ -70,19 +70,8 @@ function ImageGrid() {
             <img
               src={`${basePath}${activity.image}`}
               alt={activity.word}
-              className="w-full h-full object-contain p-1"
+              className="w-full h-full object-contain"
             />
-            <motion.div
-              className="absolute bottom-1 left-0 right-0 text-center"
-              animate={{
-                opacity: isActive ? 1 : 0,
-              }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-            >
-              <span className="font-caveat text-sm md:text-base text-muted-foreground/70">
-                {activity.word}
-              </span>
-            </motion.div>
           </motion.div>
         );
       })}
