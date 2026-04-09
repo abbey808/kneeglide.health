@@ -100,7 +100,7 @@ export function HeroSection() {
           <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
             Less knee pain, <br />
             <span className="whitespace-nowrap">
-              <span className="text-primary">more </span>
+              <span className="text-secondary">more </span>
               <span className="relative inline-block w-[13ch] h-[1.4em] overflow-hidden align-bottom">
                 <AnimatePresence mode="popLayout">
                   <motion.span
@@ -109,7 +109,7 @@ export function HeroSection() {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -50, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="absolute left-0 top-[0.05em] font-caveat text-primary text-6xl md:text-8xl whitespace-nowrap"
+                    className="absolute left-0 top-[0.05em] font-caveat text-secondary text-6xl md:text-8xl whitespace-nowrap"
                   >
                     {activities[index].word}
                   </motion.span>
