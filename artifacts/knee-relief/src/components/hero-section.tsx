@@ -7,14 +7,16 @@ const activities = [
   { word: "running", image: "/images/running.png" },
   { word: "long walks", image: "/images/walking.png" },
   { word: "yoga", image: "/images/yoga.png" },
-  { word: "games of fetch", image: "/images/fetch.png" },
+  { word: "fetch", image: "/images/fetch.png" },
   { word: "biking", image: "/images/biking.png" },
   { word: "dancing", image: "/images/dancing.png" },
+  { word: "hiking", image: "/images/hiking.png" },
+  { word: "climbing", image: "/images/climbing.png" },
 ];
 
 function ImageGrid() {
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-  const [activeIndices, setActiveIndices] = useState<Set<number>>(new Set([0, 3, 5]));
+  const [activeIndices, setActiveIndices] = useState<Set<number>>(new Set([0, 3, 5, 7]));
 
   const rotateActive = useCallback(() => {
     setActiveIndices((prev) => {
@@ -40,6 +42,8 @@ function ImageGrid() {
   }, [rotateActive]);
 
   const gridPositions = [
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
     "col-span-1 row-span-1",
     "col-span-1 row-span-1",
     "col-span-1 row-span-1",
