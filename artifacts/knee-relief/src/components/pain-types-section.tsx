@@ -29,7 +29,7 @@ export function PainTypesSection() {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-caveat text-5xl md:text-6xl text-primary mb-6">Sound familiar?</h2>
           <p className="text-xl text-muted-foreground font-light leading-relaxed">
-            Pain isn't just physical — it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
+            Pain isn't just physical, it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
           </p>
         </div>
 
