@@ -6,10 +6,12 @@ import { QualificationFormSection } from "@/components/qualification-form-sectio
 export default function Home() {
   return (
     <div className="w-full overflow-hidden">
-      <header className="absolute top-0 right-0 z-20 p-6 md:p-8">
-        <div className="text-right">
-          <div className="font-caveat text-3xl md:text-4xl text-primary leading-none">Freedom</div>
-          <div className="text-sm md:text-base text-muted-foreground font-light tracking-wide">from knee pain</div>
+      <header className="w-full z-20 bg-background/80 backdrop-blur-sm border-b border-border/20 px-6 md:px-8 py-3">
+        <div className="container mx-auto">
+          <div className="text-left">
+            <div className="font-caveat text-3xl md:text-4xl text-primary leading-none">Freedom</div>
+            <div className="text-xs md:text-sm text-muted-foreground font-light tracking-wide">from knee pain</div>
+          </div>
         </div>
       </header>
       <HeroSection />
