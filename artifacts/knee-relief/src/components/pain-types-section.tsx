@@ -1,23 +1,23 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { KneeAcheIcon, ShootingPainIcon, SharpPainIcon } from "./sketch-icons";
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const painTypes = [
   {
     title: "Knee ache after activity",
     description: "A dull, lingering discomfort that sets in after you finish the things you used to do easily, like walking the dog or gardening.",
-    icon: KneeAcheIcon,
+    image: "/images/knee-ache.png",
   },
   {
     title: "Shooting pain standing up",
     description: "Those sharp jolts that make you hesitate and brace yourself before getting up from a chair or getting out of the car.",
-    icon: ShootingPainIcon,
+    image: "/images/shooting-pain.png",
   },
   {
     title: "Sharp pain when moving",
     description: "A stabbing sensation that stops you right in your tracks, making you constantly aware of every step you take.",
-    icon: SharpPainIcon,
+    image: "/images/sharp-pain.png",
   },
 ];
 
@@ -29,7 +29,7 @@ export function PainTypesSection() {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-caveat text-5xl md:text-6xl text-primary mb-6">Sound familiar?</h2>
           <p className="text-xl text-muted-foreground font-light leading-relaxed">
-            Pain isn't just physical—it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
+            Pain isn't just physical — it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
           </p>
         </div>
 
@@ -39,13 +39,20 @@ export function PainTypesSection() {
               key={pt.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.2 }}
             >
-              <Card className="bg-background border-border/50 shadow-sm hover:shadow-md transition-shadow h-full rounded-3xl overflow-hidden group">
+              <Card
+                data-testid={`card-pain-type-${i}`}
+                className="bg-background border-border/50 shadow-sm hover:shadow-md transition-shadow h-full rounded-3xl overflow-hidden group"
+              >
                 <CardHeader className="pt-8 pb-4 flex flex-col items-center">
-                  <div className="w-24 h-24 mb-6 group-hover:scale-110 transition-transform duration-500 ease-out">
-                    <pt.icon className="w-full h-full text-foreground" />
+                  <div className="w-32 h-32 mb-4 group-hover:scale-105 transition-transform duration-500 ease-out">
+                    <img
+                      src={`${basePath}${pt.image}`}
+                      alt={pt.title}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <CardTitle className="text-2xl font-semibold text-center text-foreground">{pt.title}</CardTitle>
                 </CardHeader>

@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "pwddkmBjDytyCwfvCgvXI"
+uri = "file://artifacts/knee-relief/public/images/pickleball.png"
+type = "image"
+title = "pickleball sketch"
+
+[[generated]]
+id = "wcTtAhRuUHyPha-oYll3C"
+uri = "file://artifacts/knee-relief/public/images/running.png"
+type = "image"
+title = "running sketch"
+
+[[generated]]
+id = "_BybW7vC-eR32wKyETWIq"
+uri = "file://artifacts/knee-relief/public/images/walking.png"
+type = "image"
+title = "walking sketch"
+
+[[generated]]
+id = "x46nAvoXNBR3I4LJeGzng"
+uri = "file://artifacts/knee-relief/public/images/yoga.png"
+type = "image"
+title = "yoga sketch"
+
+[[generated]]
+id = "P2HfALOzbmTBqKVxTc6Fh"
+uri = "file://artifacts/knee-relief/public/images/fetch.png"
+type = "image"
+title = "fetch dog sketch"
+
+[[generated]]
+id = "YwFxnVXz4ETF-wbqtASyK"
+uri = "file://artifacts/knee-relief/public/images/biking.png"
+type = "image"
+title = "biking sketch"
+
+[[generated]]
+id = "gcX3uSUvElP969GsRhG1P"
+uri = "file://artifacts/knee-relief/public/images/dancing.png"
+type = "image"
+title = "dancing sketch"
+
+[[generated]]
+id = "TRDbAZiZ_gnla2R5EJe64"
+uri = "file://artifacts/knee-relief/public/images/knee-ache.png"
+type = "image"
+title = "knee ache sketch"
+
+[[generated]]
+id = "IutoI6f7t-7BvmAUE32qV"
+uri = "file://artifacts/knee-relief/public/images/shooting-pain.png"
+type = "image"
+title = "shooting pain sketch"
+
+[[generated]]
+id = "P-odNn7R6XQHJzZGXiQrs"
+uri = "file://artifacts/knee-relief/public/images/sharp-pain.png"
+type = "image"
+title = "sharp pain sketch"

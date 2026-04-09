@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { SvgFilters, PickleballIcon, RunningIcon, WalkIcon, YogaIcon, FetchIcon, BikeIcon, DanceIcon } from "./sketch-icons";
 
 const activities = [
-  { word: "pickleball", icon: PickleballIcon },
-  { word: "running", icon: RunningIcon },
-  { word: "long walks", icon: WalkIcon },
-  { word: "yoga", icon: YogaIcon },
-  { word: "games of fetch", icon: FetchIcon },
-  { word: "biking", icon: BikeIcon },
-  { word: "dancing", icon: DanceIcon },
+  { word: "pickleball", image: "/images/pickleball.png" },
+  { word: "running", image: "/images/running.png" },
+  { word: "long walks", image: "/images/walking.png" },
+  { word: "yoga", image: "/images/yoga.png" },
+  { word: "games of fetch", image: "/images/fetch.png" },
+  { word: "biking", image: "/images/biking.png" },
+  { word: "dancing", image: "/images/dancing.png" },
 ];
 
 export function HeroSection() {
@@ -27,12 +26,11 @@ export function HeroSection() {
     document.getElementById("qualification-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const CurrentIcon = activities[index].icon;
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   return (
     <section className="relative flex flex-col justify-center overflow-hidden py-16 md:py-24">
-      <SvgFilters />
-      <div className="container px-4 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="container px-4 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <div className="z-10 space-y-8 max-w-2xl">
           <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
             Less knee pain, <br />
@@ -59,6 +57,7 @@ export function HeroSection() {
             <Button 
               size="lg" 
               onClick={scrollToForm}
+              data-testid="button-hero-cta"
               className="rounded-full px-8 py-6 text-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
             >
               See if you qualify
@@ -66,18 +65,22 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="relative h-[300px] lg:h-[400px] flex items-center justify-center z-10">
+        <div className="relative h-[350px] lg:h-[450px] flex items-center justify-center z-10">
           <div className="absolute inset-0 bg-secondary/10 rounded-[100%] blur-3xl" />
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
-              initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
+              initial={{ scale: 0.85, opacity: 0, rotate: -5 }}
               animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 0.8, opacity: 0, rotate: 10 }}
+              exit={{ scale: 0.85, opacity: 0, rotate: 5 }}
               transition={{ duration: 0.5, ease: "backOut" }}
-              className="w-64 h-64 md:w-96 md:h-96 text-foreground relative"
+              className="w-72 h-72 md:w-96 md:h-96 relative"
             >
-              <CurrentIcon className="w-full h-full drop-shadow-sm" />
+              <img
+                src={`${basePath}${activities[index].image}`}
+                alt={activities[index].word}
+                className="w-full h-full object-contain drop-shadow-md"
+              />
             </motion.div>
           </AnimatePresence>
         </div>
