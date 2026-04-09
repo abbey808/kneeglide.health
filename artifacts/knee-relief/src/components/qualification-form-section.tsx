@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
@@ -23,6 +25,7 @@ const formSchema = z.object({
   painSwelling: z.number().array().length(1),
   painGrinding: z.number().array().length(1),
   painNight: z.number().array().length(1),
+  consentPrivacy: z.literal(true, { errorMap: () => ({ message: "You must agree to continue" }) }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -43,6 +46,7 @@ export function QualificationFormSection() {
       painSwelling: [0],
       painGrinding: [0],
       painNight: [0],
+      consentPrivacy: undefined as unknown as true,
     },
   });
 
@@ -236,7 +240,30 @@ export function QualificationFormSection() {
                       ))}
                     </div>
 
-                    <div className="pt-6">
+                    <div className="pt-6 space-y-4">
+                      <FormField
+                        control={form.control}
+                        name="consentPrivacy"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-background/30 p-4 rounded-2xl border border-border/30">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value === true}
+                                onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel className="text-sm text-muted-foreground font-light">
+                                I acknowledge that only a qualified local provider may contact me about treatment options. My information will not be shared broadly.{" "}
+                                <Link href="/privacy">
+                                  <span className="text-primary underline cursor-pointer hover:text-primary/80">Read our Privacy & Data Use policy</span>
+                                </Link>
+                              </FormLabel>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
                       <Button type="submit" size="lg" className="w-full text-lg rounded-full py-8 bg-accent text-accent-foreground hover:bg-accent/90 hover:scale-[1.02] transition-transform">
                         Submit
                       </Button>
