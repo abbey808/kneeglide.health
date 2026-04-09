@@ -168,7 +168,7 @@ export function QualificationFormSection() {
                       render={({ field }) => (
                         <FormItem className="space-y-4 bg-background/30 p-6 rounded-2xl border border-border/30">
                           <FormLabel className="text-lg text-foreground block mb-2">
-                            Have you seen a doctor, physical therapist, or had injections for your knee pain?
+                            Have you seen a doctor, physical therapist, discussed surgery, or had injections for your knee pain?
                           </FormLabel>
                           <FormControl>
                             <RadioGroup
