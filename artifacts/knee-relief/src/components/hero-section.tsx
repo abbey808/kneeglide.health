@@ -105,7 +105,7 @@ export function HeroSection() {
             Less knee pain, <br />
             <span className="whitespace-nowrap">
               <span className="text-secondary">more </span>
-              <span className="relative inline-block w-[13ch] h-[1.4em] overflow-hidden align-bottom">
+              <span className="relative inline-block w-[13ch] h-[1.6em] overflow-hidden align-bottom">
                 <AnimatePresence mode="popLayout">
                   <motion.span
                     key={index}
