@@ -65,7 +65,7 @@ export function QualificationFormSection() {
         <div className="text-center mb-16">
           <h2 className="font-caveat text-5xl md:text-6xl text-secondary mb-4">Are you ready to <span className="underline decoration-secondary/50 decoration-2 underline-offset-4">play</span> again?</h2>
           <p className="text-xl text-muted-foreground font-light">
-            Knee pain reduction in less than 90 minutes is available.
+            Knee pain relief in less than 90 minutes is available.
           </p>
         </div>
 
