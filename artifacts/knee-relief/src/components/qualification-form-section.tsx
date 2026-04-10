@@ -300,7 +300,7 @@ export function QualificationFormSection() {
                 </div>
                 <h3 className="font-caveat text-5xl text-primary mb-4">Thank you!</h3>
                 <p className="text-xl text-muted-foreground font-light max-w-md mx-auto mb-8">
-                  We've received your information. A caring member of our team will reach out to you shortly to discuss your options.
+                  We've received your information. A member of our team will reach out shortly to help you find FREEDOM from knee pain.
                 </p>
                 <Button 
                   variant="outline" 
