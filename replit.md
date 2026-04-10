@@ -26,6 +26,9 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Fonts**: Caveat (handwritten headlines), Nunito (body text)
 - **Theme**: Warm cream/sage green/coral palette with colored pencil sketch aesthetic
 - **Dependencies**: framer-motion (animations), react-hook-form + zod (form validation), shadcn/ui components
+- **Pages**: Home (`/`), Privacy & Data Use (`/privacy`)
+- **Form fields**: Phone, email, zip code, gender, age range, seen doctor (radio), pain symptoms (multi-select tiles), privacy consent checkbox
+- **TODO**: Google Sheets integration for form submissions (user wants to set up later — use Replit Google Sheets connector when ready)
 
 ## Key Commands
 
