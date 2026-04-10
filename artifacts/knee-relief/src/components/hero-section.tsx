@@ -122,7 +122,7 @@ export function HeroSection() {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed max-w-lg">
-            Isn't it time to get back to the things you love? From knee pain to all of your favorite activities in 72 hours. No surgery.
+            Isn't it time to get back to the things you love? Knee pain relief in 72 hours. No surgery.
           </p>
           <div>
             <Button 
