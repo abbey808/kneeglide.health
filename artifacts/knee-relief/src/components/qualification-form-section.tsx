@@ -25,6 +25,7 @@ const painSymptoms = [
 const formSchema = z.object({
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
+  zipCode: z.string().min(5, "Please enter a valid zip code").max(10),
   gender: z.string().min(1, "Please select an option"),
   ageRange: z.string().min(1, "Please select an age range"),
   seenDoctor: z.string().min(1, "Please select an option"),
@@ -42,6 +43,7 @@ export function QualificationFormSection() {
     defaultValues: {
       phone: "",
       email: "",
+      zipCode: "",
       gender: "",
       ageRange: "",
       seenDoctor: "",
@@ -86,7 +88,7 @@ export function QualificationFormSection() {
 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <FormField
                         control={form.control}
                         name="phone"
@@ -108,6 +110,19 @@ export function QualificationFormSection() {
                             <FormLabel className="text-base text-foreground/80">Email Address</FormLabel>
                             <FormControl>
                               <Input placeholder="you@example.com" type="email" className="rounded-xl h-12 bg-background/50" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="zipCode"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-base text-foreground/80">Zip Code</FormLabel>
+                            <FormControl>
+                              <Input placeholder="12345" type="text" inputMode="numeric" className="rounded-xl h-12 bg-background/50" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
