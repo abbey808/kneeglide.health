@@ -14,17 +14,21 @@ import { Slider } from "@/components/ui/slider";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Heart } from "lucide-react";
 
+const painSymptoms = [
+  { id: "painStairs", label: "Pain going up/down stairs" },
+  { id: "painSitting", label: "Pain after sitting for long periods" },
+  { id: "painSwelling", label: "Swelling or stiffness" },
+  { id: "painGrinding", label: "Grinding or popping sensation" },
+  { id: "painNight", label: "Pain that wakes you at night" },
+];
+
 const formSchema = z.object({
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
   gender: z.string().min(1, "Please select an option"),
   ageRange: z.string().min(1, "Please select an age range"),
   seenDoctor: z.string().min(1, "Please select an option"),
-  painStairs: z.number().array().length(1),
-  painSitting: z.number().array().length(1),
-  painSwelling: z.number().array().length(1),
-  painGrinding: z.number().array().length(1),
-  painNight: z.number().array().length(1),
+  painSymptoms: z.array(z.string()).min(1, "Please select at least one symptom"),
   consentPrivacy: z.literal(true, { errorMap: () => ({ message: "You must agree to continue" }) }),
 });
 
@@ -41,11 +45,7 @@ export function QualificationFormSection() {
       gender: "",
       ageRange: "",
       seenDoctor: "",
-      painStairs: [0],
-      painSitting: [0],
-      painSwelling: [0],
-      painGrinding: [0],
-      painNight: [0],
+      painSymptoms: [],
       consentPrivacy: undefined as unknown as true,
     },
   });
@@ -199,46 +199,47 @@ export function QualificationFormSection() {
                       )}
                     />
 
-                    <div className="space-y-8 bg-background/30 p-6 rounded-2xl border border-border/30">
-                      <div className="mb-6">
-                        <h4 className="text-lg font-medium text-foreground mb-1">Pain Symptoms</h4>
-                        <p className="text-sm text-muted-foreground">Slide to indicate severity (0 = None, 10 = Severe)</p>
-                      </div>
-
-                      {[
-                        { name: "painStairs", label: "Pain going up/down stairs" },
-                        { name: "painSitting", label: "Pain after sitting for long periods" },
-                        { name: "painSwelling", label: "Swelling or stiffness" },
-                        { name: "painGrinding", label: "Grinding or popping sensation" },
-                        { name: "painNight", label: "Pain that wakes you at night" },
-                      ].map((item) => (
-                        <FormField
-                          key={item.name}
-                          control={form.control}
-                          name={item.name as any}
-                          render={({ field }) => (
-                            <FormItem>
-                              <div className="flex justify-between mb-3">
-                                <FormLabel className="text-base text-foreground/90">{item.label}</FormLabel>
-                                <span className="text-sm font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full min-w-8 text-center">
-                                  {field.value}
-                                </span>
-                              </div>
-                              <FormControl>
-                                <Slider
-                                  min={0}
-                                  max={10}
-                                  step={1}
-                                  value={field.value}
-                                  onValueChange={field.onChange}
-                                  className="w-full"
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      ))}
-                    </div>
+                    <FormField
+                      control={form.control}
+                      name="painSymptoms"
+                      render={({ field }) => (
+                        <FormItem className="space-y-4 bg-background/30 p-6 rounded-2xl border border-border/30">
+                          <div className="mb-2">
+                            <FormLabel className="text-lg font-medium text-foreground block mb-1">Pain Symptoms</FormLabel>
+                            <p className="text-sm text-muted-foreground">Select all that apply</p>
+                          </div>
+                          <FormControl>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {painSymptoms.map((symptom) => {
+                                const isSelected = field.value?.includes(symptom.id);
+                                return (
+                                  <button
+                                    key={symptom.id}
+                                    type="button"
+                                    onClick={() => {
+                                      const current = field.value || [];
+                                      if (isSelected) {
+                                        field.onChange(current.filter((id: string) => id !== symptom.id));
+                                      } else {
+                                        field.onChange([...current, symptom.id]);
+                                      }
+                                    }}
+                                    className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
+                                      isSelected
+                                        ? "bg-primary/15 border-primary text-primary"
+                                        : "bg-background/50 border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
+                                    }`}
+                                  >
+                                    {symptom.label}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
                     <div className="pt-6 space-y-4">
                       <FormField
