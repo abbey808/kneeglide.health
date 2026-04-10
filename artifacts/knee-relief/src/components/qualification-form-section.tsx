@@ -20,6 +20,7 @@ const painSymptoms = [
   { id: "painSwelling", label: "Swelling or stiffness" },
   { id: "painGrinding", label: "Grinding or popping sensation" },
   { id: "painNight", label: "Pain that wakes you at night" },
+  { id: "painDull", label: "Dull or consistent aching pain" },
 ];
 
 const formSchema = z.object({
