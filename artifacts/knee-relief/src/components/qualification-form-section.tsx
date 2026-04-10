@@ -270,7 +270,7 @@ export function QualificationFormSection() {
                             </FormControl>
                             <div className="space-y-1 leading-none">
                               <FormLabel className="text-sm text-muted-foreground font-light">
-                                I acknowledge that only a qualified local provider may contact me about treatment options. My information will not be shared broadly.{" "}
+                                I acknowledge that only a qualified local provider may contact me about treatment options. We do not spam or sell your data to serial marketers.{" "}
                                 <Link href="/privacy">
                                   <span className="text-primary underline cursor-pointer hover:text-primary/80">Read our Privacy & Data Use policy</span>
                                 </Link>
