@@ -23,12 +23,11 @@ const painTypes = [
 
 export function PainTypesSection() {
   return (
-    <section className="py-24 bg-card/50 relative overflow-hidden">
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+    <section className="py-24 bg-[#1F2937] relative overflow-hidden">
       <div className="container px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="font-caveat text-5xl md:text-6xl text-primary mb-6">Sound familiar?</h2>
-          <p className="text-xl text-muted-foreground font-light leading-relaxed">
+          <h2 className="font-display text-5xl md:text-6xl text-white font-bold mb-6">Sound familiar?</h2>
+          <p className="text-xl text-white/70 leading-relaxed">
             Pain isn't just physical, it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
           </p>
         </div>
@@ -44,7 +43,7 @@ export function PainTypesSection() {
             >
               <Card
                 data-testid={`card-pain-type-${i}`}
-                className="bg-background border-border/50 shadow-sm hover:shadow-md transition-shadow h-full rounded-3xl overflow-hidden group"
+                className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow h-full rounded-2xl overflow-hidden group"
               >
                 <CardHeader className="pt-8 pb-4 flex flex-col items-center">
                   <div className="w-32 h-32 mb-4 group-hover:scale-105 transition-transform duration-500 ease-out">
@@ -54,10 +53,10 @@ export function PainTypesSection() {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <CardTitle className="text-2xl font-semibold text-center text-foreground">{pt.title}</CardTitle>
+                  <CardTitle className="text-2xl font-display font-bold text-center text-[#1F2937]">{pt.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-center text-muted-foreground leading-relaxed">
+                  <p className="text-center text-[#1F2937]/60 leading-relaxed">
                     {pt.description}
                   </p>
                 </CardContent>

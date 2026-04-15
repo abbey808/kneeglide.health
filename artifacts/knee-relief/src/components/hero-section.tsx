@@ -41,29 +41,17 @@ function ImageGrid() {
     return () => clearInterval(timer);
   }, [rotateActive]);
 
-  const gridPositions = [
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-    "col-span-1 row-span-1",
-  ];
-
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-1 w-full h-full">
+    <div className="grid grid-cols-3 grid-rows-3 gap-2 w-full h-full">
       {activities.map((activity, i) => {
         const isActive = activeIndices.has(i);
         return (
           <motion.div
             key={activity.word}
-            className={`${gridPositions[i]} relative overflow-hidden flex items-center justify-center`}
+            className="relative overflow-hidden flex items-center justify-center rounded-2xl bg-[#FFB3B5]/10"
             animate={{
               filter: isActive ? "blur(0px)" : "blur(4px)",
-              opacity: isActive ? 1 : 0.35,
+              opacity: isActive ? 1 : 0.3,
               scale: isActive ? 1.05 : 0.95,
             }}
             transition={{
@@ -101,10 +89,10 @@ export function HeroSection() {
     <section className="relative flex flex-col justify-center overflow-hidden py-16 md:py-24">
       <div className="container px-4 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <div className="z-10 space-y-8 max-w-2xl">
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
+          <h1 className="font-display text-5xl md:text-7xl font-bold text-foreground leading-[1.1] tracking-tight">
             Less knee pain, <br />
             <span className="whitespace-nowrap">
-              <span className="text-secondary">more </span>
+              <span className="text-primary">more </span>
               <span className="relative inline-block w-[13ch] h-[1.6em] overflow-hidden align-bottom">
                 <AnimatePresence mode="popLayout">
                   <motion.span
@@ -113,7 +101,7 @@ export function HeroSection() {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -50, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="absolute left-0 top-[0.05em] font-caveat text-secondary text-6xl md:text-8xl whitespace-nowrap"
+                    className="absolute left-0 top-[0.05em] font-display text-primary text-6xl md:text-8xl font-bold whitespace-nowrap"
                   >
                     {activities[index].word}
                   </motion.span>
@@ -121,7 +109,7 @@ export function HeroSection() {
               </span>
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed max-w-lg">
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-lg">
             Isn't it time to get back to the things you love? Knee pain relief in 72 hours. No surgery.
           </p>
           <div>
@@ -129,7 +117,7 @@ export function HeroSection() {
               size="lg" 
               onClick={scrollToForm}
               data-testid="button-hero-cta"
-              className="rounded-full px-8 py-6 text-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
+              className="rounded-full px-8 py-6 text-lg bg-primary hover:bg-[#B30005] text-white shadow-lg hover:shadow-xl transition-all font-semibold"
             >
               See if you qualify
             </Button>
@@ -137,7 +125,6 @@ export function HeroSection() {
         </div>
 
         <div className="relative h-[400px] lg:h-[500px] z-10">
-          <div className="absolute inset-0 bg-secondary/5 rounded-3xl" />
           <ImageGrid />
         </div>
       </div>

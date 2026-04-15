@@ -18,16 +18,18 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 
 ## Artifacts
 
-### Knee Relief Landing Page (`artifacts/knee-relief`)
+### KneeGlide Health Landing Page (`artifacts/knee-relief`)
 - **Type**: React + Vite (presentation-first, no backend)
 - **Preview path**: `/`
-- **Description**: Single-page landing page for knee pain relief referral funnel (GAE treatment)
-- **Sections**: Hero with cycling activity text + colored pencil SVG illustrations, pain types cards, qualification form
-- **Fonts**: Caveat (handwritten headlines), Nunito (body text)
-- **Theme**: Warm cream/sage green/coral palette with colored pencil sketch aesthetic
+- **Description**: Single-page landing page for KneeGlide Health — a knee pain relief referral funnel (GAE treatment)
+- **Sections**: Hero with cycling activity text + animated image grid, pain types cards (dark bg section), qualification form
+- **Fonts**: Funnel Display (display/headlines), Inter (body text)
+- **Brand colors**: Primary #FF282E (red), Dark #1F2937, White #FFFFFF, shades #800004-#FFB3B5
+- **Theme**: Clean white background, bold red CTAs, dark charcoal "Sound familiar?" section
 - **Dependencies**: framer-motion (animations), react-hook-form + zod (form validation), shadcn/ui components
 - **Pages**: Home (`/`), Privacy & Data Use (`/privacy`)
 - **Form fields**: Phone, email, zip code, gender, age range, seen doctor (radio), pain symptoms (multi-select tiles), privacy consent checkbox
+- **Button style**: White text on #E60006 (primary CTA), hover transitions to #B30005
 - **TODO**: Google Sheets integration for form submissions (user wants to set up later — use Replit Google Sheets connector when ready)
 
 ## Key Commands

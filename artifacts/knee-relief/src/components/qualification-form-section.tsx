@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Heart } from "lucide-react";
+import { Heart, CheckCircle2 } from "lucide-react";
 
 const painSymptoms = [
   { id: "painStairs", label: "Pain going up/down stairs" },
@@ -54,7 +54,6 @@ export function QualificationFormSection() {
   });
 
   const onSubmit = (data: FormValues) => {
-    // Local state only per requirements
     console.log("Form submitted:", data);
     setIsSubmitted(true);
   };
@@ -63,15 +62,17 @@ export function QualificationFormSection() {
     <section id="qualification-form" className="py-24 relative">
       <div className="container px-4 mx-auto max-w-4xl">
         <div className="text-center mb-16">
-          <h2 className="font-caveat text-5xl md:text-6xl text-secondary mb-4">Are you ready to <span className="underline decoration-secondary/50 decoration-2 underline-offset-4">play</span> again?</h2>
-          <p className="text-xl text-muted-foreground font-light">
+          <h2 className="font-display text-5xl md:text-6xl text-foreground font-bold mb-4">
+            Ready to <span className="text-primary underline decoration-primary/30 decoration-4 underline-offset-4">play</span> again?
+          </h2>
+          <p className="text-xl text-muted-foreground">
             Knee pain relief in less than 90 minutes is available.
           </p>
         </div>
 
-        <div className="bg-card rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-border/40 relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-white rounded-2xl p-8 md:p-12 shadow-xl border border-border/30 relative overflow-hidden">
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-[#FFB3B5]/10 rounded-full blur-3xl pointer-events-none" />
 
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
@@ -83,7 +84,7 @@ export function QualificationFormSection() {
                 className="relative z-10"
               >
                 <div className="mb-8">
-                  <h3 className="text-2xl font-semibold text-foreground mb-2">See if you qualify:</h3>
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-2">See if you qualify:</h3>
                   <div className="h-1 w-16 bg-primary rounded-full" />
                 </div>
 
@@ -95,9 +96,9 @@ export function QualificationFormSection() {
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-base text-foreground/80">Phone Number</FormLabel>
+                            <FormLabel className="text-base text-foreground/80 font-medium">Phone Number</FormLabel>
                             <FormControl>
-                              <Input placeholder="(555) 123-4567" type="tel" className="rounded-xl h-12 bg-background/50" {...field} />
+                              <Input placeholder="(555) 123-4567" type="tel" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -108,9 +109,9 @@ export function QualificationFormSection() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-base text-foreground/80">Email Address</FormLabel>
+                            <FormLabel className="text-base text-foreground/80 font-medium">Email Address</FormLabel>
                             <FormControl>
-                              <Input placeholder="you@example.com" type="email" className="rounded-xl h-12 bg-background/50" {...field} />
+                              <Input placeholder="you@example.com" type="email" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -121,9 +122,9 @@ export function QualificationFormSection() {
                         name="zipCode"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-base text-foreground/80">Zip Code</FormLabel>
+                            <FormLabel className="text-base text-foreground/80 font-medium">Zip Code</FormLabel>
                             <FormControl>
-                              <Input placeholder="12345" type="text" inputMode="numeric" className="rounded-xl h-12 bg-background/50" {...field} />
+                              <Input placeholder="12345" type="text" inputMode="numeric" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -137,10 +138,10 @@ export function QualificationFormSection() {
                         name="gender"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-base text-foreground/80">Gender</FormLabel>
+                            <FormLabel className="text-base text-foreground/80 font-medium">Gender</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger className="rounded-xl h-12 bg-background/50">
+                                <SelectTrigger className="rounded-xl h-12 border-border/50">
                                   <SelectValue placeholder="Select..." />
                                 </SelectTrigger>
                               </FormControl>
@@ -160,10 +161,10 @@ export function QualificationFormSection() {
                         name="ageRange"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-base text-foreground/80">Age Range</FormLabel>
+                            <FormLabel className="text-base text-foreground/80 font-medium">Age Range</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger className="rounded-xl h-12 bg-background/50">
+                                <SelectTrigger className="rounded-xl h-12 border-border/50">
                                   <SelectValue placeholder="Select..." />
                                 </SelectTrigger>
                               </FormControl>
@@ -186,8 +187,8 @@ export function QualificationFormSection() {
                       control={form.control}
                       name="seenDoctor"
                       render={({ field }) => (
-                        <FormItem className="space-y-4 bg-background/30 p-6 rounded-2xl border border-border/30">
-                          <FormLabel className="text-lg text-foreground block mb-2">
+                        <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
+                          <FormLabel className="text-lg text-foreground font-medium block mb-2">
                             Have you seen a doctor, physical therapist, discussed surgery, or had injections for your knee pain?
                           </FormLabel>
                           <FormControl>
@@ -219,7 +220,7 @@ export function QualificationFormSection() {
                       control={form.control}
                       name="painSymptoms"
                       render={({ field }) => (
-                        <FormItem className="space-y-4 bg-background/30 p-6 rounded-2xl border border-border/30">
+                        <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
                           <div className="mb-2">
                             <FormLabel className="text-lg font-medium text-foreground block mb-1">Pain Symptoms</FormLabel>
                             <p className="text-sm text-muted-foreground">Select all that apply</p>
@@ -242,8 +243,8 @@ export function QualificationFormSection() {
                                     }}
                                     className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
                                       isSelected
-                                        ? "bg-primary/15 border-primary text-primary"
-                                        : "bg-background/50 border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
+                                        ? "bg-primary/10 border-primary text-primary"
+                                        : "bg-white border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
                                     }`}
                                   >
                                     {symptom.label}
@@ -262,7 +263,7 @@ export function QualificationFormSection() {
                         control={form.control}
                         name="consentPrivacy"
                         render={({ field }) => (
-                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-background/30 p-4 rounded-2xl border border-border/30">
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-muted/30 p-4 rounded-xl border border-border/20">
                             <FormControl>
                               <Checkbox
                                 checked={field.value === true}
@@ -270,10 +271,10 @@ export function QualificationFormSection() {
                               />
                             </FormControl>
                             <div className="space-y-1 leading-none">
-                              <FormLabel className="text-sm text-muted-foreground font-light">
+                              <FormLabel className="text-sm text-muted-foreground">
                                 I acknowledge that only a qualified local provider may contact me about treatment options. We do not spam or sell your data to serial marketers.{" "}
                                 <Link href="/privacy">
-                                  <span className="text-primary underline cursor-pointer hover:text-primary/80">Read our Privacy & Data Use policy</span>
+                                  <span className="text-primary underline cursor-pointer hover:text-[#B30005]">Read our Privacy & Data Use policy</span>
                                 </Link>
                               </FormLabel>
                               <FormMessage />
@@ -281,8 +282,8 @@ export function QualificationFormSection() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" size="lg" className="w-full text-lg rounded-full py-8 bg-accent text-accent-foreground hover:bg-accent/90 hover:scale-[1.02] transition-transform">
-                        Submit
+                      <Button type="submit" size="lg" className="w-full text-lg rounded-full py-8 bg-primary hover:bg-[#B30005] text-white font-semibold hover:scale-[1.02] transition-transform">
+                        Get Started
                       </Button>
                     </div>
                   </form>
@@ -295,17 +296,17 @@ export function QualificationFormSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-16 relative z-10"
               >
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
-                  <Heart className="w-10 h-10 fill-primary/20" />
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-primary" />
                 </div>
-                <h3 className="font-caveat text-5xl text-primary mb-4">Thank you!</h3>
-                <p className="text-xl text-muted-foreground font-light max-w-md mx-auto mb-8">
-                  We've received your information. A member of our team will reach out shortly to help you find FREEDOM from knee pain.
+                <h3 className="font-display text-5xl font-bold text-foreground mb-4">Thank you!</h3>
+                <p className="text-xl text-muted-foreground max-w-md mx-auto mb-8">
+                  We've received your information. A member of our team will reach out shortly to help you get back to the things you love.
                 </p>
                 <Button 
                   variant="outline" 
                   onClick={() => setIsSubmitted(false)}
-                  className="rounded-full"
+                  className="rounded-full border-primary text-primary hover:bg-primary/5"
                 >
                   Return to form
                 </Button>
