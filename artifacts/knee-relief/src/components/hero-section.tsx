@@ -93,14 +93,14 @@ export function HeroSection() {
             Less knee pain, <br />
             <span className="whitespace-nowrap">
               <span className="text-primary">more </span>
-              <span className="relative inline-block w-[13ch] h-[1em] overflow-hidden align-baseline">
-                <AnimatePresence mode="popLayout">
+              <span className="relative inline-block w-[13ch] h-[1em] align-baseline">
+                <AnimatePresence mode="wait">
                   <motion.span
                     key={index}
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -50, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                     className="absolute left-0 bottom-[-0.08em] font-display text-primary font-bold whitespace-nowrap leading-none"
                   >
                     {activities[index].word}
