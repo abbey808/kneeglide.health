@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
 
 export default function Privacy() {
   return (
@@ -8,17 +9,7 @@ export default function Privacy() {
       <header className="w-full z-20 bg-background/80 backdrop-blur-sm border-b border-border/30 px-6 md:px-8 py-4">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="/">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm font-display">K</span>
-              </div>
-              <div className="text-left">
-                <div className="font-display text-2xl md:text-3xl text-foreground font-bold leading-none tracking-tight">
-                  <span className="text-primary">Knee</span>Glide
-                </div>
-                <div className="text-[10px] md:text-xs text-muted-foreground font-medium tracking-[0.2em] uppercase">Health</div>
-              </div>
-            </div>
+            <img src={logo} alt="KneeGlide Health" className="h-10 md:h-12 w-auto cursor-pointer" />
           </Link>
           <Link href="/">
             <Button variant="ghost" className="rounded-full gap-2">
