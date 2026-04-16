@@ -101,7 +101,7 @@ export function HeroSection() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="absolute left-0 bottom-[-0.08em] font-display text-primary font-bold whitespace-nowrap leading-none"
+                    className="absolute left-0 bottom-[-0.18em] font-display text-primary font-bold whitespace-nowrap leading-none"
                   >
                     {activities[index].word}
                   </motion.span>
