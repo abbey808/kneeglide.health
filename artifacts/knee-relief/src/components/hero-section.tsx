@@ -110,10 +110,8 @@ export function HeroSection() {
               </span>
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-lg">
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-xl">
             Isn't it time to get back to the things you love?
-            <br />
-            Knee pain relief in 72 hours. No surgery.
           </p>
           <div>
             <Button 
