@@ -29,7 +29,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-2xl font-display font-bold text-foreground mb-3">What This Site Does</h2>
             <p>
-              This website serves as a referral layer connecting individuals experiencing knee pain with local healthcare providers who offer minimally invasive treatments such as Genicular Artery Embolization (GAE). We are not a medical provider — we help you find one near you.
+              This website serves as a referral layer connecting individuals experiencing knee pain with local healthcare providers who offer minimally invasive treatments such as Genicular Artery Embolization (GAE). We are not a medical provider, we help you find one near you.
             </p>
           </section>
 
@@ -43,7 +43,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-2xl font-display font-bold text-foreground mb-3">How Your Information May Be Shared</h2>
             <p>
-              Information you submit through our qualification form may be shared anonymously with healthcare providers in your local area who perform non-invasive knee treatments such as GAE. This sharing is limited to providers who may be able to help you — your information is never distributed broadly or shared with unrelated parties.
+              Information you submit through our qualification form may be shared anonymously with healthcare providers in your local area who perform non-invasive knee treatments such as GAE. This sharing is limited to providers who may be able to help you. Your information is never distributed broadly or shared with unrelated parties.
             </p>
           </section>
 
@@ -57,7 +57,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-2xl font-display font-bold text-foreground mb-3">Your Consent</h2>
             <p>
-              Submitting the form on this website constitutes your consent to the data practices described on this page. You acknowledge that a qualified local provider — and only a local provider — may contact you about treatment options. Your information will not be shared broadly or used for unrelated purposes.
+              Submitting the form on this website constitutes your consent to the data practices described on this page. You acknowledge that a qualified local provider, and only a local provider, may contact you about treatment options. Your information will not be shared broadly or used for unrelated purposes.
             </p>
           </section>
 
