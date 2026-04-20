@@ -285,6 +285,9 @@ export function QualificationFormSection() {
                       <Button type="submit" size="lg" className="w-full text-lg rounded-full py-8 bg-primary hover:bg-[#B30005] text-white font-semibold hover:scale-[1.02] transition-transform">
                         Get Started
                       </Button>
+                      <div className="rounded-lg bg-primary/5 border border-primary/20 px-4 py-3 text-center text-sm text-foreground/80">
+                        A representative from KneeGlide Health will be in touch within 24 hours.
+                      </div>
                     </div>
                   </form>
                 </Form>
