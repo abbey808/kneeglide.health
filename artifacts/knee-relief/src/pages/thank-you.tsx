@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { CheckCircle2, Clock, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
+import dancingImage from "@assets/image_1776741759981.png";
 
 export default function ThankYou() {
   useEffect(() => {
@@ -37,9 +37,13 @@ export default function ThankYou() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-8"
+            className="mx-auto mb-8 flex items-center justify-center"
           >
-            <CheckCircle2 className="w-12 h-12 text-primary" />
+            <img
+              src={dancingImage}
+              alt="Couple dancing"
+              className="w-48 md:w-64 h-auto"
+            />
           </motion.div>
 
           <h1 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
