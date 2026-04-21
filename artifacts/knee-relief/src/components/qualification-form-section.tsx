@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Heart, CheckCircle2 } from "lucide-react";
+import { Heart, CheckCircle2, ShieldCheck, Lock } from "lucide-react";
 
 const painSymptoms = [
   { id: "painStairs", label: "Pain going up/down stairs" },
@@ -88,6 +88,23 @@ export function QualificationFormSection() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-display font-bold text-foreground mb-2">See if you qualify:</h3>
                   <div className="h-1 w-16 bg-primary rounded-full" />
+                </div>
+
+                <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 rounded-xl bg-primary/5 border border-primary/15 px-4 py-3 text-sm text-foreground/80">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-primary" />
+                    <span className="font-medium">HIPAA-Compliant</span>
+                  </div>
+                  <span className="hidden sm:inline text-foreground/20">|</span>
+                  <div className="flex items-center gap-2">
+                    <Lock className="w-4 h-4 text-primary" />
+                    <span className="font-medium">Secure & Private</span>
+                  </div>
+                  <span className="hidden sm:inline text-foreground/20">|</span>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    <span className="font-medium">No spam, ever</span>
+                  </div>
                 </div>
 
                 <Form {...form}>
