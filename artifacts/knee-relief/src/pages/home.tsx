@@ -8,7 +8,7 @@ import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png
 export default function Home() {
   return (
     <div className="w-full overflow-hidden">
-      <div className="w-full bg-primary text-white text-center text-sm md:text-base font-medium px-4 py-2.5">
+      <div className="w-full bg-[#1F2937] text-white text-center text-sm md:text-base font-medium px-4 py-2.5">
         Freedom from knee pain is available TODAY. Get in touch with our team.
       </div>
       <header className="w-full z-20 bg-background/80 backdrop-blur-sm border-b border-border/30 px-6 md:px-8 py-4">
