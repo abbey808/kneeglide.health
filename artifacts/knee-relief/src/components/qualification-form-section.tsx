@@ -92,19 +92,19 @@ export function QualificationFormSection() {
                   <div className="h-1 w-16 bg-primary rounded-full" />
                 </div>
 
-                <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 rounded-xl bg-primary/5 border border-primary/15 px-4 py-3 text-sm text-foreground/80">
+                <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-foreground/80">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-primary" />
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     <span className="font-medium">HIPAA-Compliant</span>
                   </div>
-                  <span className="hidden sm:inline text-foreground/20">|</span>
+                  <span className="hidden sm:inline text-emerald-200">|</span>
                   <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-primary" />
+                    <Lock className="w-4 h-4 text-emerald-600" />
                     <span className="font-medium">Secure & Private</span>
                   </div>
-                  <span className="hidden sm:inline text-foreground/20">|</span>
+                  <span className="hidden sm:inline text-emerald-200">|</span>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     <span className="font-medium">No spam, ever</span>
                   </div>
                 </div>
