@@ -49,37 +49,6 @@ export default function ThankYou() {
             Your information has been received. A representative from KneeGlide Health will be in touch within 24 hours.
           </p>
 
-          <div className="bg-white rounded-2xl border border-border/40 shadow-sm p-6 md:p-8 mb-10 text-left space-y-5">
-            <h2 className="font-display text-xl font-bold text-foreground mb-2">What happens next</h2>
-            <div className="flex gap-4 items-start">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">Within 24 hours</p>
-                <p className="text-muted-foreground">A care coordinator will review your information and reach out by phone or email.</p>
-              </div>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Phone className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">Quick consultation</p>
-                <p className="text-muted-foreground">We'll confirm your eligibility and answer any questions about the GAE procedure.</p>
-              </div>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Mail className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">Connect with a local provider</p>
-                <p className="text-muted-foreground">We'll match you with a board-certified provider in your area for next steps.</p>
-              </div>
-            </div>
-          </div>
-
           <Link href="/">
             <Button
               size="lg"
