@@ -21,6 +21,9 @@ const painSymptoms = [
   { id: "painGrinding", label: "Grinding or popping sensation" },
   { id: "painNight", label: "Pain that wakes you at night" },
   { id: "painDull", label: "Dull or consistent aching pain" },
+  { id: "osteoarthritis", label: "Osteoarthritis" },
+  { id: "localTenderness", label: "Local knee tenderness" },
+  { id: "failedConservative", label: "Resistant/failed conservative treatment (NSAIDS/PT/joint injection)" },
 ];
 
 const formSchema = z.object({
