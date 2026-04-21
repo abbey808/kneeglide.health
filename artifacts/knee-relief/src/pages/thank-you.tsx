@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
-import dancingImage from "@assets/image_1776741759981.png";
+import dancingImage from "@assets/image_1776741856706.png";
 
 export default function ThankYou() {
   useEffect(() => {
