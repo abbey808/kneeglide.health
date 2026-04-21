@@ -105,23 +105,6 @@ export function QualificationFormSection() {
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-[#FFB3B5]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-semibold text-foreground">
-                  Step {step} of {TOTAL_STEPS}
-                </span>
-                <span className="text-sm text-muted-foreground">{stepLabels[step]}</span>
-              </div>
-              <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  initial={false}
-                  animate={{ width: `${progressPct}%` }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="h-full bg-primary rounded-full"
-                />
-              </div>
-            </div>
-
             <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-foreground/80">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
