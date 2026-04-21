@@ -6,13 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Heart, CheckCircle2, ShieldCheck, Lock } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Lock, ArrowRight, ArrowLeft } from "lucide-react";
 
 const painSymptoms = [
   { id: "painStairs", label: "Pain going up/down stairs" },
@@ -37,12 +35,22 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const TOTAL_STEPS = 4;
+
+const stepLabels: Record<number, string> = {
+  1: "Your Symptoms",
+  2: "Your History",
+  3: "About You",
+  4: "Check Local Availability",
+};
+
 export function QualificationFormSection() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [, setLocation] = useLocation();
+  const [step, setStep] = useState(1);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
     defaultValues: {
       phone: "",
       email: "",
@@ -58,9 +66,27 @@ export function QualificationFormSection() {
 
   const onSubmit = (data: FormValues) => {
     console.log("Form submitted:", data);
-    setIsSubmitted(true);
     setLocation("/thank-you");
   };
+
+  const painSymptomsValue = form.watch("painSymptoms");
+  const seenDoctorValue = form.watch("seenDoctor");
+  const ageRangeValue = form.watch("ageRange");
+  const genderValue = form.watch("gender");
+
+  const goNext = async () => {
+    let fieldsToValidate: (keyof FormValues)[] = [];
+    if (step === 1) fieldsToValidate = ["painSymptoms"];
+    else if (step === 2) fieldsToValidate = ["seenDoctor"];
+    else if (step === 3) fieldsToValidate = ["ageRange", "gender"];
+
+    const valid = await form.trigger(fieldsToValidate);
+    if (valid) setStep((s) => Math.min(TOTAL_STEPS, s + 1));
+  };
+
+  const goBack = () => setStep((s) => Math.max(1, s - 1));
+
+  const progressPct = (step / TOTAL_STEPS) * 100;
 
   return (
     <section id="qualification-form" className="py-24 relative">
@@ -78,112 +104,157 @@ export function QualificationFormSection() {
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-[#FFB3B5]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <AnimatePresence mode="wait">
-            {!isSubmitted ? (
-              <motion.div
-                key="form"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="relative z-10"
-              >
-                <div className="mb-8">
-                  <h3 className="text-2xl font-display font-bold text-foreground mb-2">See if you qualify:</h3>
-                  <div className="h-1 w-16 bg-primary rounded-full" />
-                </div>
+          <div className="relative z-10">
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-semibold text-foreground">
+                  Step {step} of {TOTAL_STEPS}
+                </span>
+                <span className="text-sm text-muted-foreground">{stepLabels[step]}</span>
+              </div>
+              <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                <motion.div
+                  initial={false}
+                  animate={{ width: `${progressPct}%` }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="h-full bg-primary rounded-full"
+                />
+              </div>
+            </div>
 
-                <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-foreground/80">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span className="font-medium">HIPAA-Compliant</span>
-                  </div>
-                  <span className="hidden sm:inline text-emerald-200">|</span>
-                  <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-emerald-600" />
-                    <span className="font-medium">Secure & Private</span>
-                  </div>
-                  <span className="hidden sm:inline text-emerald-200">|</span>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span className="font-medium">No spam, ever</span>
-                  </div>
-                </div>
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-foreground/80">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span className="font-medium">HIPAA-Compliant</span>
+              </div>
+              <span className="hidden sm:inline text-emerald-200">|</span>
+              <div className="flex items-center gap-2">
+                <Lock className="w-4 h-4 text-emerald-600" />
+                <span className="font-medium">Secure & Private</span>
+              </div>
+              <span className="hidden sm:inline text-emerald-200">|</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span className="font-medium">No spam, ever</span>
+              </div>
+            </div>
 
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <AnimatePresence mode="wait">
+                  {step === 1 && (
+                    <motion.div
+                      key="step1"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                    >
                       <FormField
                         control={form.control}
-                        name="phone"
+                        name="painSymptoms"
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-base text-foreground/80 font-medium">Phone Number</FormLabel>
+                          <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
+                            <div className="mb-2">
+                              <FormLabel className="text-lg font-medium text-foreground block mb-1">
+                                Which symptoms apply to you?
+                              </FormLabel>
+                              <p className="text-sm text-muted-foreground">Select all that apply</p>
+                            </div>
                             <FormControl>
-                              <Input placeholder="(555) 123-4567" type="tel" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {painSymptoms.map((symptom) => {
+                                  const isSelected = field.value?.includes(symptom.id);
+                                  return (
+                                    <button
+                                      key={symptom.id}
+                                      type="button"
+                                      onClick={() => {
+                                        const current = field.value || [];
+                                        if (isSelected) {
+                                          field.onChange(current.filter((id: string) => id !== symptom.id));
+                                        } else {
+                                          field.onChange([...current, symptom.id]);
+                                        }
+                                      }}
+                                      className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
+                                        isSelected
+                                          ? "bg-primary/10 border-primary text-primary"
+                                          : "bg-white border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
+                                      }`}
+                                    >
+                                      {symptom.label}
+                                    </button>
+                                  );
+                                })}
+                              </div>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-base text-foreground/80 font-medium">Email Address</FormLabel>
-                            <FormControl>
-                              <Input placeholder="you@example.com" type="email" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="zipCode"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-base text-foreground/80 font-medium">Zip Code</FormLabel>
-                            <FormControl>
-                              <Input placeholder="12345" type="text" inputMode="numeric" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                    </motion.div>
+                  )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {step === 2 && (
+                    <motion.div
+                      key="step2"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                    >
                       <FormField
                         control={form.control}
-                        name="gender"
+                        name="seenDoctor"
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-base text-foreground/80 font-medium">Gender</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger className="rounded-xl h-12 border-border/50">
-                                  <SelectValue placeholder="Select..." />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="female">Female</SelectItem>
-                                <SelectItem value="male">Male</SelectItem>
-                                <SelectItem value="other">Other</SelectItem>
-                                <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                              </SelectContent>
-                            </Select>
+                          <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
+                            <FormLabel className="text-lg text-foreground font-medium block mb-2">
+                              Have you seen a doctor, physical therapist, discussed surgery, or had injections for your knee pain?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={field.onChange}
+                                value={field.value}
+                                className="flex space-x-6"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal text-base cursor-pointer">Yes</FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="no" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal text-base cursor-pointer">No</FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
+                    </motion.div>
+                  )}
+
+                  {step === 3 && (
+                    <motion.div
+                      key="step3"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    >
                       <FormField
                         control={form.control}
                         name="ageRange"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-base text-foreground/80 font-medium">Age Range</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger className="rounded-xl h-12 border-border/50">
                                   <SelectValue placeholder="Select..." />
@@ -202,165 +273,185 @@ export function QualificationFormSection() {
                           </FormItem>
                         )}
                       />
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="seenDoctor"
-                      render={({ field }) => (
-                        <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
-                          <FormLabel className="text-lg text-foreground font-medium block mb-2">
-                            Have you seen a doctor, physical therapist, discussed surgery, or had injections for your knee pain?
-                          </FormLabel>
-                          <FormControl>
-                            <RadioGroup
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                              className="flex space-x-6"
-                            >
-                              <FormItem className="flex items-center space-x-3 space-y-0">
-                                <FormControl>
-                                  <RadioGroupItem value="yes" />
-                                </FormControl>
-                                <FormLabel className="font-normal text-base cursor-pointer">Yes</FormLabel>
-                              </FormItem>
-                              <FormItem className="flex items-center space-x-3 space-y-0">
-                                <FormControl>
-                                  <RadioGroupItem value="no" />
-                                </FormControl>
-                                <FormLabel className="font-normal text-base cursor-pointer">No</FormLabel>
-                              </FormItem>
-                            </RadioGroup>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="painSymptoms"
-                      render={({ field }) => (
-                        <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
-                          <div className="mb-2">
-                            <FormLabel className="text-lg font-medium text-foreground block mb-1">Pain Symptoms</FormLabel>
-                            <p className="text-sm text-muted-foreground">Select all that apply</p>
-                          </div>
-                          <FormControl>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                              {painSymptoms.map((symptom) => {
-                                const isSelected = field.value?.includes(symptom.id);
-                                return (
-                                  <button
-                                    key={symptom.id}
-                                    type="button"
-                                    onClick={() => {
-                                      const current = field.value || [];
-                                      if (isSelected) {
-                                        field.onChange(current.filter((id: string) => id !== symptom.id));
-                                      } else {
-                                        field.onChange([...current, symptom.id]);
-                                      }
-                                    }}
-                                    className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
-                                      isSelected
-                                        ? "bg-primary/10 border-primary text-primary"
-                                        : "bg-white border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
-                                    }`}
-                                  >
-                                    {symptom.label}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <div className="pt-6 space-y-4">
                       <FormField
                         control={form.control}
-                        name="consentPrivacy"
+                        name="gender"
                         render={({ field }) => (
-                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-muted/30 p-4 rounded-xl border border-border/20">
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value === true}
-                                onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
-                              />
-                            </FormControl>
-                            <div className="space-y-1 leading-none">
-                              <FormLabel className="text-sm text-muted-foreground">
-                                I acknowledge that only a qualified local provider may contact me about treatment options. We do not spam or sell your data to serial marketers.{" "}
-                                <Link href="/privacy">
-                                  <span className="text-primary underline cursor-pointer hover:text-[#B30005]">Read our Privacy & Data Use policy</span>
-                                </Link>
-                              </FormLabel>
-                              <FormMessage />
-                            </div>
+                          <FormItem>
+                            <FormLabel className="text-base text-foreground/80 font-medium">Gender</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger className="rounded-xl h-12 border-border/50">
+                                  <SelectValue placeholder="Select..." />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="female">Female</SelectItem>
+                                <SelectItem value="male">Male</SelectItem>
+                                <SelectItem value="other">Other</SelectItem>
+                                <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
                           </FormItem>
                         )}
                       />
-                      <FormField
-                        control={form.control}
-                        name="consentTcpa"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-muted/30 p-4 rounded-xl border border-border/20">
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value === true}
-                                onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
-                              />
-                            </FormControl>
-                            <div className="space-y-1 leading-none">
-                              <FormLabel className="text-sm text-muted-foreground">
-                                I agree to be contacted by KneeGlide Health and its affiliated providers by phone, text, and email about knee pain treatment options. Consent is not a condition of treatment. Reply STOP to opt out. See our{" "}
-                                <Link href="/privacy">
-                                  <span className="text-primary underline cursor-pointer hover:text-[#B30005]">full communications consent terms</span>
-                                </Link>
-                                {" "}for details.
-                              </FormLabel>
+                    </motion.div>
+                  )}
+
+                  {step === 4 && (
+                    <motion.div
+                      key="step4"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                      className="space-y-6"
+                    >
+                      <p className="text-sm text-muted-foreground">
+                        Last step. Enter your contact details so we can check provider availability in your area.
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="zipCode"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-base text-foreground/80 font-medium">Zip Code</FormLabel>
+                              <FormControl>
+                                <Input placeholder="12345" type="text" inputMode="numeric" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
+                              </FormControl>
                               <FormMessage />
-                            </div>
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="submit" size="lg" className="w-full text-lg rounded-full py-8 bg-primary hover:bg-[#B30005] text-white font-semibold hover:scale-[1.02] transition-transform">
-                        Find Relief
-                      </Button>
-                      <div className="rounded-lg bg-primary/5 border border-primary/20 px-4 py-3 text-center text-sm text-foreground/80">
-                        A representative from KneeGlide Health will be in touch within 24 hours.
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-base text-foreground/80 font-medium">Email Address</FormLabel>
+                              <FormControl>
+                                <Input placeholder="you@example.com" type="email" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="phone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-base text-foreground/80 font-medium">Phone Number</FormLabel>
+                              <FormControl>
+                                <Input placeholder="(555) 123-4567" type="tel" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       </div>
-                    </div>
-                  </form>
-                </Form>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-16 relative z-10"
-              >
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 className="w-10 h-10 text-primary" />
+
+                      <div className="space-y-4 pt-2">
+                        <FormField
+                          control={form.control}
+                          name="consentPrivacy"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-muted/30 p-4 rounded-xl border border-border/20">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value === true}
+                                  onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel className="text-sm text-muted-foreground">
+                                  I acknowledge that only a qualified local provider may contact me about treatment options. We do not spam or sell your data to serial marketers.{" "}
+                                  <Link href="/privacy">
+                                    <span className="text-primary underline cursor-pointer hover:text-[#B30005]">Read our Privacy & Data Use policy</span>
+                                  </Link>
+                                </FormLabel>
+                                <FormMessage />
+                              </div>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="consentTcpa"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-muted/30 p-4 rounded-xl border border-border/20">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value === true}
+                                  onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel className="text-sm text-muted-foreground">
+                                  I agree to be contacted by KneeGlide Health and its affiliated providers by phone, text, and email about knee pain treatment options. Consent is not a condition of treatment. Reply STOP to opt out. See our{" "}
+                                  <Link href="/privacy">
+                                    <span className="text-primary underline cursor-pointer hover:text-[#B30005]">full communications consent terms</span>
+                                  </Link>
+                                  {" "}for details.
+                                </FormLabel>
+                                <FormMessage />
+                              </div>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                  {step > 1 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="lg"
+                      onClick={goBack}
+                      className="rounded-full px-6 py-6 border-border/50 text-foreground/70 hover:bg-muted gap-2"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      Back
+                    </Button>
+                  )}
+
+                  {step < TOTAL_STEPS && (
+                    <Button
+                      type="button"
+                      size="lg"
+                      onClick={goNext}
+                      disabled={step === 1 && (!painSymptomsValue || painSymptomsValue.length === 0)}
+                      className="flex-1 text-lg rounded-full py-6 bg-primary hover:bg-[#B30005] text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+                    >
+                      Next
+                      <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  )}
+
+                  {step === TOTAL_STEPS && (
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="flex-1 text-lg rounded-full py-6 bg-primary hover:bg-[#B30005] text-white font-semibold hover:scale-[1.02] transition-transform"
+                    >
+                      Find Relief
+                    </Button>
+                  )}
                 </div>
-                <h3 className="font-display text-5xl font-bold text-foreground mb-4">Thank you!</h3>
-                <p className="text-xl text-muted-foreground max-w-md mx-auto mb-8">
-                  We've received your information. A member of our team will reach out shortly to help you get back to the things you love.
-                </p>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setIsSubmitted(false)}
-                  className="rounded-full border-primary text-primary hover:bg-primary/5"
-                >
-                  Return to form
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+
+                {step === TOTAL_STEPS && (
+                  <div className="rounded-lg bg-primary/5 border border-primary/20 px-4 py-3 text-center text-sm text-foreground/80">
+                    A representative from KneeGlide Health will be in touch within 24 hours.
+                  </div>
+                )}
+              </form>
+            </Form>
+          </div>
         </div>
       </div>
     </section>
