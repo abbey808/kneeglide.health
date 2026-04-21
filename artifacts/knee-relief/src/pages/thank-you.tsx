@@ -42,7 +42,7 @@ export default function ThankYou() {
             <img
               src={dancingImage}
               alt="Couple dancing"
-              className="w-48 md:w-64 h-auto"
+              className="w-32 md:w-40 h-auto mix-blend-multiply"
             />
           </motion.div>
 
