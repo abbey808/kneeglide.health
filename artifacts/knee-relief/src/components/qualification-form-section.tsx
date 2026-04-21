@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,6 +38,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export function QualificationFormSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [, setLocation] = useLocation();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -56,6 +57,7 @@ export function QualificationFormSection() {
   const onSubmit = (data: FormValues) => {
     console.log("Form submitted:", data);
     setIsSubmitted(true);
+    setLocation("/thank-you");
   };
 
   return (
