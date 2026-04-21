@@ -32,6 +32,7 @@ const formSchema = z.object({
   seenDoctor: z.string().min(1, "Please select an option"),
   painSymptoms: z.array(z.string()).min(1, "Please select at least one symptom"),
   consentPrivacy: z.literal(true, { errorMap: () => ({ message: "You must agree to continue" }) }),
+  consentTcpa: z.literal(true, { errorMap: () => ({ message: "You must agree to be contacted to continue" }) }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -51,6 +52,7 @@ export function QualificationFormSection() {
       seenDoctor: "",
       painSymptoms: [],
       consentPrivacy: undefined as unknown as true,
+      consentTcpa: undefined as unknown as true,
     },
   });
 
@@ -295,6 +297,30 @@ export function QualificationFormSection() {
                                 <Link href="/privacy">
                                   <span className="text-primary underline cursor-pointer hover:text-[#B30005]">Read our Privacy & Data Use policy</span>
                                 </Link>
+                              </FormLabel>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="consentTcpa"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 bg-muted/30 p-4 rounded-xl border border-border/20">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value === true}
+                                onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel className="text-sm text-muted-foreground">
+                                By checking this box, I provide my express written consent to be contacted by KneeGlide Health and its affiliated healthcare providers at the phone number and email I provided, including by autodialed calls, prerecorded messages, and SMS/text messages, regarding knee pain treatment options. Message and data rates may apply. Message frequency varies. Consent is not a condition of any purchase or treatment. Reply STOP to opt out at any time. See our{" "}
+                                <Link href="/privacy">
+                                  <span className="text-primary underline cursor-pointer hover:text-[#B30005]">Privacy Policy</span>
+                                </Link>
+                                {" "}for details.
                               </FormLabel>
                               <FormMessage />
                             </div>
