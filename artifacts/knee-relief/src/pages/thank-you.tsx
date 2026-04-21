@@ -26,7 +26,7 @@ export default function ThankYou() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-4 py-16 md:py-24">
+      <main className="flex-1 flex items-start justify-center px-4 pt-8 md:pt-12 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
