@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       <header className="w-full z-20 bg-background/80 backdrop-blur-sm border-b border-border/30 px-6 md:px-8 py-4">
         <div className="container mx-auto flex items-center justify-between">
-          <img src={logo} alt="KneeGlide Health" className="h-10 md:h-12 w-auto" />
+          <img src={logo} alt="KneeGlide Health" className="h-[50px] md:h-[60px] w-auto" />
           <Link href="/privacy">
             <span className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer">Privacy</span>
           </Link>
