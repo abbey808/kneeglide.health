@@ -316,9 +316,9 @@ export function QualificationFormSection() {
                             </FormControl>
                             <div className="space-y-1 leading-none">
                               <FormLabel className="text-sm text-muted-foreground">
-                                By checking this box, I provide my express written consent to be contacted by KneeGlide Health and its affiliated healthcare providers at the phone number and email I provided, including by autodialed calls, prerecorded messages, and SMS/text messages, regarding knee pain treatment options. Message and data rates may apply. Message frequency varies. Consent is not a condition of any purchase or treatment. Reply STOP to opt out at any time. See our{" "}
+                                I agree to be contacted by KneeGlide Health and its affiliated providers by phone, text, and email about knee pain treatment options. Consent is not a condition of treatment. Reply STOP to opt out. See our{" "}
                                 <Link href="/privacy">
-                                  <span className="text-primary underline cursor-pointer hover:text-[#B30005]">Privacy Policy</span>
+                                  <span className="text-primary underline cursor-pointer hover:text-[#B30005]">full communications consent terms</span>
                                 </Link>
                                 {" "}for details.
                               </FormLabel>

@@ -54,6 +54,19 @@ export default function Privacy() {
             </p>
           </section>
 
+          <section id="tcpa-consent">
+            <h2 className="text-2xl font-display font-bold text-foreground mb-3">Communications Consent (TCPA)</h2>
+            <p>
+              By checking the communications consent box on the qualification form, you provide your express written consent to be contacted by KneeGlide Health and its affiliated healthcare providers at the phone number and email address you provided, including by autodialed calls, prerecorded or artificial voice messages, and SMS/text messages, regarding knee pain treatment options and related services.
+            </p>
+            <p className="mt-4">
+              Message and data rates may apply. Message frequency varies. Your consent to receive these communications is not a condition of any purchase, service, or treatment. You may opt out of SMS messages at any time by replying STOP to any text message, and you may opt out of phone calls by asking the caller to remove you from their list. Standard carrier message and data rates may apply to any messages sent to or received from KneeGlide Health.
+            </p>
+            <p className="mt-4">
+              For help with text messages, reply HELP. For more information about how your contact information is used, see the other sections of this Privacy & Data Use page.
+            </p>
+          </section>
+
           <section>
             <h2 className="text-2xl font-display font-bold text-foreground mb-3">Your Consent</h2>
             <p>
