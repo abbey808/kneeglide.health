@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
-import dancingImage from "@assets/image_1776741856706.png";
+import dancingImage from "@/assets/dancing-dog.png";
 
 export default function ThankYou() {
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function ThankYou() {
             <img
               src={dancingImage}
               alt="Couple dancing"
-              className="w-32 md:w-40 h-auto mix-blend-multiply"
+              className="w-32 md:w-40 h-auto"
             />
           </motion.div>
 
