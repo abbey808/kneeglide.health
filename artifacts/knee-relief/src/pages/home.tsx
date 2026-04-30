@@ -24,8 +24,8 @@ export default function Home() {
       </header>
       <HeroSection />
       <PainTypesSection />
-      <MechanismSection />
       <CandidacySection />
+      <MechanismSection />
       <HowItWorksSection />
       <QualificationFormSection />
       <footer className="py-10 border-t border-border/20">
