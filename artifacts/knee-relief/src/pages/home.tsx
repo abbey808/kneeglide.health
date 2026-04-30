@@ -3,6 +3,8 @@ import { Link } from "wouter";
 import { HeroSection } from "@/components/hero-section";
 import { PainTypesSection } from "@/components/pain-types-section";
 import { MechanismSection } from "@/components/mechanism-section";
+import { CandidacySection } from "@/components/candidacy-section";
+import { HowItWorksSection } from "@/components/how-it-works-section";
 import { QualificationFormSection } from "@/components/qualification-form-section";
 import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
 
@@ -23,6 +25,8 @@ export default function Home() {
       <HeroSection />
       <PainTypesSection />
       <MechanismSection />
+      <CandidacySection />
+      <HowItWorksSection />
       <QualificationFormSection />
       <footer className="py-10 border-t border-border/20">
         <div className="container mx-auto px-4 flex flex-col items-center gap-3">
