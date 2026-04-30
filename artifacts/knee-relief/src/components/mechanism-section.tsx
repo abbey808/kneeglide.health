@@ -66,6 +66,16 @@ export function MechanismSection() {
             ))}
           </motion.div>
         </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-white/50 text-xs mt-16 leading-relaxed"
+        >
+          <sup className="mr-1">1</sup>Cusumano L, et al. Genicular Artery Embolization for Knee Osteoarthritis: 2-Year Outcomes. J Vasc Interv Radiol. 2024;35:1768-1775.
+        </motion.p>
       </div>
     </section>
   );
