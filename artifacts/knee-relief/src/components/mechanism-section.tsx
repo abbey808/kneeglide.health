@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const stats = [
   {
     value: "86%",
-    description: "≥50% pain reduction at 6 months in a foundational 95-knee study",
+    description: "≥50% pain reduction at 6 months in a foundational study",
     superscript: "1",
   },
   {
@@ -12,11 +12,11 @@ const stats = [
   },
   {
     value: "2 yrs+",
-    description: "Durability observed in long-term follow-up of responders",
+    description: "Patients continue to see pain-free relief for years",
   },
   {
     value: "2021",
-    description: "FDA Breakthrough Device designation for GAE microspheres",
+    description: "FDA Breakthrough Device makes GAE easy and effective",
   },
 ];
 
@@ -50,11 +50,11 @@ export function MechanismSection() {
             className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10"
           >
             {stats.map((stat) => (
-              <div key={stat.value} className="space-y-3">
-                <div className="font-display text-6xl md:text-7xl font-bold text-primary leading-none">
+              <div key={stat.value} className="flex flex-col">
+                <div className="font-display text-5xl md:text-6xl font-bold text-primary leading-none whitespace-nowrap mb-4">
                   {stat.value}
                   {stat.superscript && (
-                    <sup className="text-2xl md:text-3xl font-bold ml-1 align-super">
+                    <sup className="text-xl md:text-2xl font-bold ml-1 align-super">
                       {stat.superscript}
                     </sup>
                   )}
