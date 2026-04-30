@@ -38,7 +38,7 @@ export function CandidacySection() {
               Is GAE right for you?
             </p>
             <h2 className="font-display text-5xl md:text-6xl text-foreground font-bold mb-8 leading-[1.05]">
-              A real way to avoid knee surgery.
+              A real way to <span className="underline decoration-primary decoration-4 underline-offset-4">avoid</span> knee surgery.
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
               GAE is designed for adults with chronic knee pain from osteoarthritis who haven't found lasting relief from injections, physical therapy, or medication, and aren't ready (or aren't candidates) for total knee replacement.
