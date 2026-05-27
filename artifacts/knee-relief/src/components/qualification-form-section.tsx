@@ -93,10 +93,10 @@ export function QualificationFormSection() {
       <div className="container px-4 mx-auto max-w-4xl">
         <div className="text-center mb-16">
           <h2 className="font-display text-5xl md:text-6xl text-foreground font-bold mb-4">
-            Ready to <span className="text-primary underline decoration-primary/30 decoration-4 underline-offset-4">play</span> again?
+            Find out if <span className="text-primary underline decoration-primary/30 decoration-4 underline-offset-4">GAE</span> is right for you
           </h2>
           <p className="text-xl text-muted-foreground">
-            Knee pain relief in less than 90 minutes is available.
+            Takes 2 minutes. No commitment required.
           </p>
         </div>
 
