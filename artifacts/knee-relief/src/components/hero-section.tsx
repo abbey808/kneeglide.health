@@ -114,7 +114,7 @@ export function HeroSection() {
             <span className="block">Isn't it time to get back to the things you love?</span>
             <span className="block whitespace-nowrap">Knee <span className="text-primary underline decoration-primary/40 decoration-2 underline-offset-4">pain relief</span> in 72 hours. No surgery.</span>
           </p>
-          <div className="space-y-4">
+          <div>
             <Button 
               size="lg" 
               onClick={scrollToForm}
@@ -123,26 +123,38 @@ export function HeroSection() {
             >
               Get Relief
             </Button>
-
-            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium px-4 py-2.5 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-              Healing that costs you $0
-            </div>
-
-            <div className="flex items-center gap-2 text-sm text-muted-foreground pt-1">
-              <div className="flex gap-0.5 text-primary">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14.1 18.5 21 12 17.3 5.5 21 7 14.1 2 9.3 9 9 12 2"/></svg>
-                ))}
-              </div>
-              <span className="font-semibold text-foreground">4.9 / 5</span>
-              <span>·Most commercial insurance plans cover GAE, free of charge. Verify your benefits before you commit.</span>
-            </div>
           </div>
         </div>
 
         <div className="relative h-[400px] lg:h-[500px] z-10">
           <ImageGrid />
+        </div>
+      </div>
+
+      <div className="container px-4 mx-auto mt-12 md:mt-16">
+        <div className="rounded-2xl bg-emerald-50 border border-emerald-200 px-6 md:px-10 py-8 md:py-10">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-8 gap-4">
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-emerald-900 leading-tight">
+                Healing that costs you $0
+              </h2>
+            </div>
+            <p className="text-base md:text-lg text-emerald-900/80 leading-relaxed md:border-l md:border-emerald-200 md:pl-8">
+              Most commercial insurance plans cover GAE in full. We verify your benefits before you commit, so there are no surprises.
+            </p>
+          </div>
+          <div className="mt-6 pt-6 border-t border-emerald-200 flex items-center gap-2 text-sm text-emerald-900/80">
+            <div className="flex gap-0.5 text-primary">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14.1 18.5 21 12 17.3 5.5 21 7 14.1 2 9.3 9 9 12 2"/></svg>
+              ))}
+            </div>
+            <span className="font-semibold text-emerald-900">4.9 / 5</span>
+            <span>· Trusted by patients nationwide</span>
+          </div>
         </div>
       </div>
     </section>
