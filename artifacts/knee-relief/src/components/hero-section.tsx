@@ -146,15 +146,9 @@ export function HeroSection() {
               Most commercial insurance plans cover GAE in full. We verify your benefits before you commit, so there are no surprises.
             </p>
           </div>
-          <div className="mt-6 pt-6 border-t border-emerald-200 flex items-center gap-2 text-sm text-emerald-900/80">
-            <div className="flex gap-0.5 text-primary">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14.1 18.5 21 12 17.3 5.5 21 7 14.1 2 9.3 9 9 12 2"/></svg>
-              ))}
-            </div>
-            <span className="font-semibold text-emerald-900">4.9 / 5</span>
-            <span>· Trusted by patients nationwide</span>
-          </div>
+          <p className="mt-6 pt-6 border-t border-emerald-200 text-sm italic text-emerald-900/70 leading-relaxed">
+            Coverage decisions are made by your insurance carrier and depend on your specific plan and medical history. We'll give you a clear picture of your expected out-of-pocket cost before you decide to move forward.
+          </p>
         </div>
       </div>
     </section>
