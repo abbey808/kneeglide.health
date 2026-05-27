@@ -43,6 +43,15 @@ export function CandidacySection() {
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
               GAE is designed for adults with chronic knee pain from osteoarthritis who haven't found lasting relief from injections, physical therapy, or medication, and aren't ready (or aren't candidates) for total knee replacement.
             </p>
+            <div className="mt-8">
+              <button
+                type="button"
+                onClick={() => document.getElementById("qualification-form")?.scrollIntoView({ behavior: "smooth" })}
+                className="rounded-full px-8 py-4 text-base bg-primary hover:bg-[#B30005] text-white font-semibold shadow-md transition-all"
+              >
+                Get Relief →
+              </button>
+            </div>
           </motion.div>
 
           <motion.aside

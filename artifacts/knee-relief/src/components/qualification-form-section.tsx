@@ -21,6 +21,19 @@ const painSymptoms = [
   { id: "painDull", label: "Dull or consistent aching pain" },
 ];
 
+const whichKneeOptions = [
+  { id: "left", label: "Left" },
+  { id: "right", label: "Right" },
+  { id: "both", label: "Both" },
+];
+
+const insuranceOptions = [
+  { id: "medicare", label: "Medicare" },
+  { id: "commercial", label: "Commercial Insurance (like BlueCross, Aetna, UnitedHealth, etc.)" },
+  { id: "medicaid", label: "Medicaid" },
+  { id: "unsure-uninsured", label: "I'm not sure / uninsured" },
+];
+
 const formSchema = z.object({
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
@@ -28,6 +41,8 @@ const formSchema = z.object({
   gender: z.string().min(1, "Please select an option"),
   ageRange: z.string().min(1, "Please select an age range"),
   seenDoctor: z.string().min(1, "Please select an option"),
+  whichKnee: z.enum(["left", "right", "both"], { errorMap: () => ({ message: "Please select an option" }) }),
+  insuranceType: z.enum(["medicare", "commercial", "medicaid", "unsure-uninsured"], { errorMap: () => ({ message: "Please select an option" }) }),
   painSymptoms: z.array(z.string()).min(1, "Please select at least one symptom"),
   consentPrivacy: z.literal(true, { errorMap: () => ({ message: "You must agree to continue" }) }),
   consentTcpa: z.literal(true, { errorMap: () => ({ message: "You must agree to be contacted to continue" }) }),
@@ -35,13 +50,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 6;
 
 const stepLabels: Record<number, string> = {
-  1: "Your Symptoms",
-  2: "Your History",
-  3: "About You",
-  4: "Check Local Availability",
+  1: "Which Knee",
+  2: "Your Symptoms",
+  3: "Your History",
+  4: "Insurance",
+  5: "About You",
+  6: "Check Local Availability",
 };
 
 export function QualificationFormSection() {
@@ -58,6 +75,8 @@ export function QualificationFormSection() {
       gender: "",
       ageRange: "",
       seenDoctor: "",
+      whichKnee: undefined as unknown as "left",
+      insuranceType: undefined as unknown as "medicare",
       painSymptoms: [],
       consentPrivacy: undefined as unknown as true,
       consentTcpa: undefined as unknown as true,
@@ -69,16 +88,20 @@ export function QualificationFormSection() {
     setLocation("/thank-you");
   };
 
+  const whichKneeValue = form.watch("whichKnee");
   const painSymptomsValue = form.watch("painSymptoms");
   const seenDoctorValue = form.watch("seenDoctor");
+  const insuranceTypeValue = form.watch("insuranceType");
   const ageRangeValue = form.watch("ageRange");
   const genderValue = form.watch("gender");
 
   const goNext = async () => {
     let fieldsToValidate: (keyof FormValues)[] = [];
-    if (step === 1) fieldsToValidate = ["painSymptoms"];
-    else if (step === 2) fieldsToValidate = ["seenDoctor"];
-    else if (step === 3) fieldsToValidate = ["ageRange", "gender"];
+    if (step === 1) fieldsToValidate = ["whichKnee"];
+    else if (step === 2) fieldsToValidate = ["painSymptoms"];
+    else if (step === 3) fieldsToValidate = ["seenDoctor"];
+    else if (step === 4) fieldsToValidate = ["insuranceType"];
+    else if (step === 5) fieldsToValidate = ["ageRange", "gender"];
 
     const valid = await form.trigger(fieldsToValidate);
     if (valid) setStep((s) => Math.min(TOTAL_STEPS, s + 1));
@@ -92,11 +115,11 @@ export function QualificationFormSection() {
     <section id="qualification-form" className="py-24 relative">
       <div className="container px-4 mx-auto max-w-4xl">
         <div className="text-center mb-16">
-          <h2 className="font-display text-5xl md:text-6xl text-foreground font-bold mb-4">
-            Ready to <span className="text-primary underline decoration-primary/30 decoration-4 underline-offset-4">play</span> again?
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-4 md:whitespace-nowrap">
+            Find out if <span className="text-primary underline decoration-primary/30 decoration-4 underline-offset-4">GAE</span> is right for you
           </h2>
           <p className="text-xl text-muted-foreground">
-            Knee pain relief in less than 90 minutes is available.
+            Takes 2 minutes. No commitment required.
           </p>
         </div>
 
@@ -128,6 +151,53 @@ export function QualificationFormSection() {
                   {step === 1 && (
                     <motion.div
                       key="step1"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <FormField
+                        control={form.control}
+                        name="whichKnee"
+                        render={({ field }) => (
+                          <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
+                            <div className="mb-2">
+                              <FormLabel className="text-lg font-medium text-foreground block mb-1">
+                                Which knee is bothering you?
+                              </FormLabel>
+                              <p className="text-sm text-muted-foreground">Select one</p>
+                            </div>
+                            <FormControl>
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                {whichKneeOptions.map((option) => {
+                                  const isSelected = field.value === option.id;
+                                  return (
+                                    <button
+                                      key={option.id}
+                                      type="button"
+                                      onClick={() => field.onChange(option.id)}
+                                      className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
+                                        isSelected
+                                          ? "bg-primary/10 border-primary text-primary"
+                                          : "bg-white border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
+                                      }`}
+                                    >
+                                      {option.label}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </motion.div>
+                  )}
+
+                  {step === 2 && (
+                    <motion.div
+                      key="step2"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
@@ -179,9 +249,9 @@ export function QualificationFormSection() {
                     </motion.div>
                   )}
 
-                  {step === 2 && (
+                  {step === 3 && (
                     <motion.div
-                      key="step2"
+                      key="step3"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
@@ -222,9 +292,61 @@ export function QualificationFormSection() {
                     </motion.div>
                   )}
 
-                  {step === 3 && (
+                  {step === 4 && (
                     <motion.div
-                      key="step3"
+                      key="step4"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <FormField
+                        control={form.control}
+                        name="insuranceType"
+                        render={({ field }) => (
+                          <FormItem className="space-y-4 bg-muted/30 p-6 rounded-xl border border-border/20">
+                            <div className="mb-2">
+                              <FormLabel className="text-lg font-medium text-foreground block mb-1">
+                                Do you have health insurance?
+                              </FormLabel>
+                              <p className="text-sm text-muted-foreground">Select one</p>
+                            </div>
+                            <FormControl>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {insuranceOptions.map((option) => {
+                                  const isSelected = field.value === option.id;
+                                  return (
+                                    <button
+                                      key={option.id}
+                                      type="button"
+                                      onClick={() => field.onChange(option.id)}
+                                      className={`p-4 rounded-xl border-2 text-left text-sm font-medium transition-all ${
+                                        isSelected
+                                          ? "bg-primary/10 border-primary text-primary"
+                                          : "bg-white border-border/40 text-muted-foreground hover:border-primary/40 hover:bg-primary/5"
+                                      }`}
+                                    >
+                                      {option.label}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </FormControl>
+                            {field.value && (
+                              <p className="text-sm text-muted-foreground pt-2">
+                                GAE is covered by Medicare and a growing number of commercial plans. Cash-pay options are also available.
+                              </p>
+                            )}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </motion.div>
+                  )}
+
+                  {step === 5 && (
+                    <motion.div
+                      key="step5"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
@@ -282,9 +404,9 @@ export function QualificationFormSection() {
                     </motion.div>
                   )}
 
-                  {step === 4 && (
+                  {step === 6 && (
                     <motion.div
-                      key="step4"
+                      key="step6"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
@@ -408,7 +530,11 @@ export function QualificationFormSection() {
                       type="button"
                       size="lg"
                       onClick={goNext}
-                      disabled={step === 1 && (!painSymptomsValue || painSymptomsValue.length === 0)}
+                      disabled={
+                        (step === 1 && !whichKneeValue) ||
+                        (step === 2 && (!painSymptomsValue || painSymptomsValue.length === 0)) ||
+                        (step === 4 && !insuranceTypeValue)
+                      }
                       className="flex-1 text-lg rounded-full py-6 bg-primary hover:bg-[#B30005] text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed gap-2"
                     >
                       Next

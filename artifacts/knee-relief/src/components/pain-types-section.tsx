@@ -25,14 +25,7 @@ export function PainTypesSection() {
   return (
     <section className="py-24 bg-[#1F2937] relative overflow-hidden">
       <div className="container px-4 mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="font-display text-5xl md:text-6xl text-white font-bold mb-6">Sound familiar?</h2>
-          <p className="text-xl text-white/70 leading-relaxed">
-            Pain isn't just physical, it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {painTypes.map((pt, i) => (
             <motion.div
               key={pt.title}
@@ -63,6 +56,13 @@ export function PainTypesSection() {
               </Card>
             </motion.div>
           ))}
+        </div>
+
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="font-display text-5xl md:text-6xl text-white font-bold mb-6">Sound familiar?</h2>
+          <p className="text-xl text-white/70 leading-relaxed">
+            Pain isn't just physical, it's the frustration of sitting out. Whether it's an ache or a sharp jolt, many of these issues can be addressed with a gentle, minimally invasive treatment called GAE.
+          </p>
         </div>
       </div>
     </section>
