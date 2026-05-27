@@ -114,15 +114,30 @@ export function HeroSection() {
             <span className="block">Isn't it time to get back to the things you love?</span>
             <span className="block whitespace-nowrap">Knee <span className="text-primary underline decoration-primary/40 decoration-2 underline-offset-4">pain relief</span> in 72 hours. No surgery.</span>
           </p>
-          <div>
+          <div className="space-y-4">
             <Button 
               size="lg" 
               onClick={scrollToForm}
               data-testid="button-hero-cta"
               className="rounded-full px-8 py-6 text-lg bg-primary hover:bg-[#B30005] text-white shadow-lg hover:shadow-xl transition-all font-semibold"
             >
-              See if you qualify
+              Get Relief
             </Button>
+
+            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium px-4 py-2.5 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              Healing that costs you $0
+            </div>
+
+            <div className="flex items-center gap-2 text-sm text-muted-foreground pt-1">
+              <div className="flex gap-0.5 text-primary">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.3 17 14.1 18.5 21 12 17.3 5.5 21 7 14.1 2 9.3 9 9 12 2"/></svg>
+                ))}
+              </div>
+              <span className="font-semibold text-foreground">4.9 / 5</span>
+              <span>·Most commercial insurance plans cover GAE, free of charge. Verify your benefits before you commit.</span>
+            </div>
           </div>
         </div>
 
