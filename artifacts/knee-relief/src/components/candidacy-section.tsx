@@ -100,6 +100,23 @@ export function CandidacySection() {
             );
           })}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+        >
+          <div className="flex justify-center mt-10">
+            <button
+              type="button"
+              onClick={() => document.getElementById("qualification-form")?.scrollIntoView({ behavior: "smooth" })}
+              className="rounded-full px-8 py-4 text-base bg-primary hover:bg-[#B30005] text-white font-semibold shadow-md transition-all"
+            >
+              Get Relief →
+            </button>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
