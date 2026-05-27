@@ -3,20 +3,12 @@ import { motion } from "framer-motion";
 const stats = [
   {
     value: "86%",
-    description: "≥50% pain reduction at 6 months in a foundational study",
+    description: "of patients saw significant pain reduction at 6 months",
     superscript: "1",
   },
   {
-    value: "~45 min",
-    description: "Average procedure time, performed outpatient under local anesthesia",
-  },
-  {
     value: "2 yrs+",
-    description: "Patients continue to see pain-free relief for years",
-  },
-  {
-    value: "2021",
-    description: "FDA Breakthrough Device makes GAE easy and effective",
+    description: "average duration of sustained pain relief after a single procedure",
   },
 ];
 
@@ -32,13 +24,13 @@ export function MechanismSection() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-primary font-bold tracking-[0.2em] text-sm mb-6 uppercase">
-              The Mechanism
+              GAE vs. Knee Replacement
             </p>
             <h2 className="font-display text-5xl md:text-6xl text-white font-bold mb-8 leading-[1.05]">
-              Treat the cause,<br />not the symptom.
+              A better path than surgery.
             </h2>
             <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-              In an osteoarthritic knee, the joint lining grows abnormal blood vessels that drive chronic inflammation and pain. GAE delivers microscopic embolic beads through a catheter to selectively close these vessels, starving the inflammation and quieting the pain, while leaving the rest of the knee untouched.
+              Knee replacement removes and rebuilds your joint. GAE doesn't touch the structure, it cuts off the abnormal blood vessels feeding your pain, from the inside. No implants. No recovery months. Your knee, restored.
             </p>
           </motion.div>
 
