@@ -30,7 +30,7 @@ const whichKneeOptions = [
 const insuranceOptions = [
   { id: "medicare", label: "Medicare" },
   { id: "commercial", label: "Commercial Insurance (like BlueCross, Aetna, UnitedHealth, etc.)" },
-  { id: "both", label: "Both Medicare & Commercial" },
+  { id: "medicaid", label: "Medicaid" },
   { id: "unsure-uninsured", label: "I'm not sure / uninsured" },
 ];
 
@@ -42,7 +42,7 @@ const formSchema = z.object({
   ageRange: z.string().min(1, "Please select an age range"),
   seenDoctor: z.string().min(1, "Please select an option"),
   whichKnee: z.enum(["left", "right", "both"], { errorMap: () => ({ message: "Please select an option" }) }),
-  insuranceType: z.enum(["medicare", "commercial", "both", "unsure-uninsured"], { errorMap: () => ({ message: "Please select an option" }) }),
+  insuranceType: z.enum(["medicare", "commercial", "medicaid", "unsure-uninsured"], { errorMap: () => ({ message: "Please select an option" }) }),
   painSymptoms: z.array(z.string()).min(1, "Please select at least one symptom"),
   consentPrivacy: z.literal(true, { errorMap: () => ({ message: "You must agree to continue" }) }),
   consentTcpa: z.literal(true, { errorMap: () => ({ message: "You must agree to be contacted to continue" }) }),
