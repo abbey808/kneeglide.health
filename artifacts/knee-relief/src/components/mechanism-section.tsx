@@ -27,7 +27,7 @@ export function MechanismSection() {
               GAE vs. Knee Replacement
             </p>
             <h2 className="font-display text-5xl md:text-6xl text-white font-bold mb-8 leading-[1.05]">
-              A better path than surgery.
+              Treat the cause,<br />not the symptom
             </h2>
             <p className="text-lg md:text-xl text-white/70 leading-relaxed">
               Knee replacement removes and rebuilds your joint. GAE doesn't touch the structure, it cuts off the abnormal blood vessels feeding your pain, from the inside. No implants. No recovery months. Your knee, restored.
