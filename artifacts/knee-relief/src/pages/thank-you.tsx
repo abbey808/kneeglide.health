@@ -12,7 +12,16 @@ export default function ThankYou() {
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
-    trackLeadConversion();
+
+    // Only count a conversion for a real submission, not a direct visit/refresh.
+    let submitted = false;
+    try {
+      submitted = sessionStorage.getItem("kg_lead_submitted") === "1";
+      if (submitted) sessionStorage.removeItem("kg_lead_submitted");
+    } catch {
+      submitted = true;
+    }
+    if (submitted) trackLeadConversion();
   }, []);
 
   return (

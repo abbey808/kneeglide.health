@@ -1,0 +1,1 @@
+- [knee-relief lead capture + analytics](knee-relief-integrations.md) — static Vite site posts leads to Google Apps Script (no-cors/text-plain), writes to "Leads" tab (not gid=0); GA4 conversion gated by sessionStorage on /thank-you.

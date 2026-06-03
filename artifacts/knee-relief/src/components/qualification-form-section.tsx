@@ -155,6 +155,14 @@ export function QualificationFormSection() {
       }
     }
 
+    // Flag a genuine submission so the thank-you page only fires the conversion
+    // once, rather than on every direct visit or refresh of /thank-you.
+    try {
+      sessionStorage.setItem("kg_lead_submitted", "1");
+    } catch {
+      // sessionStorage may be unavailable (private mode); conversion still fires.
+    }
+
     setLocation("/thank-you");
   };
 
