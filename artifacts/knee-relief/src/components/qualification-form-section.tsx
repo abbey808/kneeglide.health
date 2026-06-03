@@ -50,6 +50,41 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const WEBHOOK_URL = import.meta.env.VITE_FORM_WEBHOOK_URL as string | undefined;
+
+const whichKneeLabels: Record<string, string> = {
+  left: "Left",
+  right: "Right",
+  both: "Both",
+};
+
+const insuranceLabels: Record<string, string> = {
+  medicare: "Medicare",
+  commercial: "Commercial Insurance",
+  medicaid: "Medicaid",
+  "unsure-uninsured": "Not sure / uninsured",
+};
+
+const ageRangeLabels: Record<string, string> = {
+  "under-40": "Under 40",
+  "40-49": "40-49",
+  "50-59": "50-59",
+  "60-69": "60-69",
+  "70-79": "70-79",
+  "80-plus": "80+",
+};
+
+const genderLabels: Record<string, string> = {
+  female: "Female",
+  male: "Male",
+  other: "Other",
+  "prefer-not-to-say": "Prefer not to say",
+};
+
+const painSymptomLabels: Record<string, string> = Object.fromEntries(
+  painSymptoms.map((s) => [s.id, s.label]),
+);
+
 const TOTAL_STEPS = 6;
 
 const stepLabels: Record<number, string> = {
@@ -83,8 +118,43 @@ export function QualificationFormSection() {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form submitted:", data);
+  const [submitting, setSubmitting] = useState(false);
+
+  const onSubmit = async (data: FormValues) => {
+    setSubmitting(true);
+
+    const payload = {
+      submittedAt: new Date().toISOString(),
+      phone: data.phone,
+      email: data.email,
+      zipCode: data.zipCode,
+      whichKnee: whichKneeLabels[data.whichKnee] ?? data.whichKnee,
+      painSymptoms: data.painSymptoms
+        .map((id) => painSymptomLabels[id] ?? id)
+        .join(", "),
+      seenDoctor: data.seenDoctor === "yes" ? "Yes" : "No",
+      insuranceType: insuranceLabels[data.insuranceType] ?? data.insuranceType,
+      ageRange: ageRangeLabels[data.ageRange] ?? data.ageRange,
+      gender: genderLabels[data.gender] ?? data.gender,
+      consentPrivacy: data.consentPrivacy,
+      consentTcpa: data.consentTcpa,
+    };
+
+    if (WEBHOOK_URL) {
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        });
+      } catch {
+        // Submission is fire-and-forget; never block the user from reaching the
+        // thank-you step if the network request fails.
+      }
+    }
+
     setLocation("/thank-you");
   };
 
@@ -546,9 +616,10 @@ export function QualificationFormSection() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="flex-1 text-lg rounded-full py-6 bg-primary hover:bg-[#B30005] text-white font-semibold hover:scale-[1.02] transition-transform"
+                      disabled={submitting}
+                      className="flex-1 text-lg rounded-full py-6 bg-primary hover:bg-[#B30005] text-white font-semibold hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                      Find Relief
+                      {submitting ? "Submitting..." : "Find Relief"}
                     </Button>
                   )}
                 </div>
