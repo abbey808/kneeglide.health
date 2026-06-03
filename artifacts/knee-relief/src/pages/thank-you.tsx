@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
 import dancingImage from "@/assets/dancing-dog.png";
-import { trackLeadConversion } from "@/lib/analytics";
+import { initAnalytics, trackLeadConversion } from "@/lib/analytics";
 
 export default function ThankYou() {
   useEffect(() => {
@@ -12,6 +12,10 @@ export default function ThankYou() {
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
+
+    // Ensure the GA tag is loaded even on a direct/fresh load of this page,
+    // since child effects run before the parent App effect. Idempotent.
+    initAnalytics();
 
     // Only count a conversion for a real submission, not a direct visit/refresh.
     let submitted = false;
