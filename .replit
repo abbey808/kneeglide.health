@@ -38,3 +38,8 @@ externalPort = 80
 [[ports]]
 localPort = 20151
 externalPort = 3001
+
+[userenv]
+
+[userenv.shared]
+VITE_GTAG_ID = "G-4E78T6TSFQ"
