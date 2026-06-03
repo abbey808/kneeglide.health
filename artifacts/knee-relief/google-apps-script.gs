@@ -74,6 +74,45 @@ function doGet() {
   return json_({ result: "ok", message: "KneeGlide lead endpoint is live." });
 }
 
+/**
+ * Run this once from the editor (select "testSetup" in the toolbar dropdown and
+ * click Run). It forces Google to ask for permissions, including sending email,
+ * then writes a test row and emails NOTIFY_EMAIL so you can confirm both work.
+ * Delete the test row from the sheet afterward if you like.
+ */
+function testSetup() {
+  var sample = {
+    submittedAt: new Date().toISOString(),
+    phone: "(555) 123-4567",
+    email: "test@example.com",
+    zipCode: "12345",
+    whichKnee: "Both",
+    painSymptoms: "Pain going up/down stairs, Swelling or stiffness",
+    seenDoctor: "Yes",
+    insuranceType: "Medicare",
+    ageRange: "60-69",
+    gender: "Female",
+    consentPrivacy: true,
+    consentTcpa: true,
+  };
+  var sheet = getSheet_();
+  sheet.appendRow([
+    sample.submittedAt,
+    sample.phone,
+    sample.email,
+    sample.zipCode,
+    sample.whichKnee,
+    sample.painSymptoms,
+    sample.seenDoctor,
+    sample.insuranceType,
+    sample.ageRange,
+    sample.gender,
+    "Yes",
+    "Yes",
+  ]);
+  sendNotification_(sample);
+}
+
 function getSheet_() {
   var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   var sheet = ss.getSheetByName(SHEET_NAME);
