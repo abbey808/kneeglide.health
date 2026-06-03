@@ -43,3 +43,4 @@ externalPort = 3001
 
 [userenv.shared]
 VITE_GTAG_ID = "G-4E78T6TSFQ"
+VITE_FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyVACbaQLWKqn3O-3QVqkfe3pXE-T0WY1WqNk0iRR-CqcHtIpGz5g4Y-wqjCZD0fLpk/exec"
