@@ -20,6 +20,11 @@ The `knee-relief` artifact is a static React+Vite app with NO backend. Lead capt
 - Conversion fires on `/thank-you` mount, but **gated behind a `sessionStorage` flag (`kg_lead_submitted`)** set in the form's onSubmit, so direct visits/refreshes of /thank-you don't inflate counts.
 - If `VITE_GTAG_CONVERSION_SEND_TO` is set, it fires a Google Ads `conversion` event; otherwise a GA4 `generate_lead` event. GA4 requires marking `generate_lead` as a key event to count it as a conversion.
 
+## Meta (Facebook) Pixel
+- Base pixel code lives directly in `index.html` <head> (pixel id hardcoded), firing `PageView` on full page load. This is separate from the GA env-var pattern — the id is NOT in an env var.
+- The form-completion conversion fires `fbq('track','Lead')` from `trackLeadConversion()` in `src/lib/analytics.ts`, alongside the GA event, gated by the same `kg_lead_submitted` sessionStorage flag so it only counts genuine submissions.
+- Because it's a JS-only SPA, the `<noscript>` pixel fallback never actually serves (app needs JS to render) — kept only for completeness.
+
 ## Gotchas
 - `VITE_*` vars are inlined at **build time** — the app must be **republished/redeployed** for prod to pick up new env values; dev needs a workflow restart.
 - The Apps Script endpoint is public/unauthenticated (Who has access: Anyone) — known spam exposure inherent to the no-backend design.
