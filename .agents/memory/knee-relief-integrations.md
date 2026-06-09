@@ -22,8 +22,9 @@ The `knee-relief` artifact is a static React+Vite app with NO backend. Lead capt
 
 ## Meta (Facebook) Pixel
 - Base pixel code lives directly in `index.html` <head> (pixel id hardcoded), firing `PageView` on full page load. This is separate from the GA env-var pattern — the id is NOT in an env var.
-- The form-completion conversion fires `fbq('track','Lead')` from `trackLeadConversion()` in `src/lib/analytics.ts`, alongside the GA event, gated by the same `kg_lead_submitted` sessionStorage flag so it only counts genuine submissions.
-- Because it's a JS-only SPA, the `<noscript>` pixel fallback never actually serves (app needs JS to render) — kept only for completeness.
+- The `Lead` conversion fires via `trackMetaLead()` in `src/lib/analytics.ts`, called UNCONDITIONALLY on `/thank-you` mount (per user: fire for everyone who reaches the page). This is intentionally NOT gated, unlike the GA `generate_lead` which stays gated behind the `kg_lead_submitted` sessionStorage flag.
+- **Do NOT put `<noscript><img></noscript>` in `<head>`.** Vite's HTML parser (parse5) throws `disallowed-content-in-noscript-in-head` (img is not metadata content). It was removed; it's useless anyway for a JS-mandatory SPA.
+- **Meta suppresses the `Lead` event** on the dev preview: browser console shows "[Meta Pixel] You are attempting to send a restricted event. The event was suppressed." PageView still sends. This is Meta-side policy (health/sensitive-category vertical and/or firing from the unverified `*.replit.dev` domain rather than the registered `kneeglide.health`), NOT a code bug. Verify on the real published domain + Meta Events Manager (restricted/sensitive data settings, domain verification).
 
 ## Gotchas
 - `VITE_*` vars are inlined at **build time** — the app must be **republished/redeployed** for prod to pick up new env values; dev needs a workflow restart.

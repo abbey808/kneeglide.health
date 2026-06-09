@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import logo from "@assets/Screenshot_2026-04-16_at_11.33.35_AM_1776353630113.png";
 import dancingImage from "@/assets/dancing-dog.png";
-import { initAnalytics, trackLeadConversion } from "@/lib/analytics";
+import { initAnalytics, trackLeadConversion, trackMetaLead } from "@/lib/analytics";
 
 export default function ThankYou() {
   useEffect(() => {
@@ -17,7 +17,10 @@ export default function ThankYou() {
     // since child effects run before the parent App effect. Idempotent.
     initAnalytics();
 
-    // Only count a conversion for a real submission, not a direct visit/refresh.
+    // Meta Pixel "Lead" fires for everyone who reaches the thank-you page.
+    trackMetaLead();
+
+    // Google conversion is gated to a real submission, not a direct visit/refresh.
     let submitted = false;
     try {
       submitted = sessionStorage.getItem("kg_lead_submitted") === "1";
