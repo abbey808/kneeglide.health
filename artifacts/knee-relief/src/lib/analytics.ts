@@ -1,45 +1,21 @@
 declare global {
   interface Window {
     dataLayer: unknown[];
-    gtag: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
   }
 }
 
-const GTAG_ID = import.meta.env.VITE_GTAG_ID as string | undefined;
-const CONVERSION_SEND_TO = import.meta.env.VITE_GTAG_CONVERSION_SEND_TO as
-  | string
-  | undefined;
+// Google Tag Manager (GTM-KBPBZGGT) is loaded in index.html. All Google-side
+// tracking now flows through the GTM container via dataLayer events — the
+// direct gtag.js / GA4 tag has been removed to avoid double-counting.
 
-let initialized = false;
-
-export function initAnalytics() {
-  if (initialized || typeof window === "undefined" || !GTAG_ID) return;
-  initialized = true;
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`;
-  document.head.appendChild(script);
-
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
-    window.dataLayer.push(arguments);
-  };
-  window.gtag("js", new Date());
-  window.gtag("config", GTAG_ID);
-}
-
-// Google Analytics / Google Ads conversion. Gated to genuine submissions by the
-// caller so refreshes/direct visits don't inflate counts.
+// Lead conversion, gated to genuine submissions by the caller so
+// refreshes/direct visits don't inflate counts. Pushed to the dataLayer so
+// GTM can pick it up with a Custom Event trigger named "generate_lead".
 export function trackLeadConversion() {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-
-  if (CONVERSION_SEND_TO) {
-    window.gtag("event", "conversion", { send_to: CONVERSION_SEND_TO });
-  } else {
-    window.gtag("event", "generate_lead");
-  }
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: "generate_lead" });
 }
 
 // Meta Pixel standard "Lead" event. The base pixel is initialized in index.html.
