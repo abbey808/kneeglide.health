@@ -15,10 +15,12 @@ The `knee-relief` artifact is a static React+Vite app with NO backend. Lead capt
 - **Apps Script writes to a tab named "Leads", NOT the default first tab (gid=0).** Users repeatedly look at gid=0 and think nothing saved. Data + auto-created bold header row are in the "Leads" tab.
 - Notification email recipient is set by `NOTIFY_EMAIL` inside the .gs file.
 
-## GA4 conversion tracking
-- `src/lib/analytics.ts`: `initAnalytics()` loads gtag.js for `VITE_GTAG_ID` (current tag is a GA4 `G-` id), called once in `App`.
-- Conversion fires on `/thank-you` mount, but **gated behind a `sessionStorage` flag (`kg_lead_submitted`)** set in the form's onSubmit, so direct visits/refreshes of /thank-you don't inflate counts.
-- If `VITE_GTAG_CONVERSION_SEND_TO` is set, it fires a Google Ads `conversion` event; otherwise a GA4 `generate_lead` event. GA4 requires marking `generate_lead` as a key event to count it as a conversion.
+## Google tracking (GTM container — replaced direct GA4 tag July 2026)
+- Per user decision, the direct gtag.js/GA4 tag (`VITE_GTAG_ID`) was REMOVED and replaced by a GTM container hardcoded in `index.html` (head snippet + body noscript). **Do not re-add gtag.js** — the user wants a single container to avoid double-counting; all Google tags are managed inside GTM.
+- The site now only pushes dataLayer events; GTM must have Custom Event triggers for them:
+  - `generate_lead` — fired on `/thank-you`, still **gated behind the `kg_lead_submitted` sessionStorage flag** so direct visits/refreshes don't inflate counts.
+  - `form_submission_success` (with `form_name: kneeglide_landing_form`) — fired in the form's onSubmit, per user's GTM setup.
+- `VITE_GTAG_ID` / `VITE_GTAG_CONVERSION_SEND_TO` env vars are now unused by the code.
 
 ## Meta (Facebook) Pixel
 - Base pixel code lives directly in `index.html` <head> (pixel id hardcoded), firing `PageView` on full page load. This is separate from the GA env-var pattern — the id is NOT in an env var.

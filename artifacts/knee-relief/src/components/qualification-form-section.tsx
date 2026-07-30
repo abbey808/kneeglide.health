@@ -155,6 +155,13 @@ export function QualificationFormSection() {
       }
     }
 
+    // GTM: signal a successful form submission for tag triggers.
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "form_submission_success",
+      form_name: "kneeglide_landing_form",
+    });
+
     // Flag a genuine submission so the thank-you page only fires the conversion
     // once, rather than on every direct visit or refresh of /thank-you.
     try {
