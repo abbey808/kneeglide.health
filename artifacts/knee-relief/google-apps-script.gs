@@ -39,6 +39,8 @@ var HEADERS = [
   "Gender",
   "Privacy Consent",
   "Contact Consent (TCPA)",
+  "First Name",
+  "Last Name",
 ];
 
 function doPost(e) {
@@ -59,6 +61,8 @@ function doPost(e) {
       data.gender || "",
       data.consentPrivacy ? "Yes" : "No",
       data.consentTcpa ? "Yes" : "No",
+      data.firstName || "",
+      data.lastName || "",
     ];
 
     sheet.appendRow(row);
@@ -83,6 +87,8 @@ function doGet() {
 function testSetup() {
   var sample = {
     submittedAt: new Date().toISOString(),
+    firstName: "Test",
+    lastName: "Lead",
     phone: "(555) 123-4567",
     email: "test@example.com",
     zipCode: "12345",
@@ -109,6 +115,8 @@ function testSetup() {
     sample.gender,
     "Yes",
     "Yes",
+    sample.firstName,
+    sample.lastName,
   ]);
   sendNotification_(sample);
 }
@@ -132,6 +140,7 @@ function sendNotification_(data) {
   var lines = [
     "A new lead just completed the Get Relief form.",
     "",
+    "Name: " + ((data.firstName || "") + " " + (data.lastName || "")).trim(),
     "Phone: " + (data.phone || ""),
     "Email: " + (data.email || ""),
     "Zip Code: " + (data.zipCode || ""),

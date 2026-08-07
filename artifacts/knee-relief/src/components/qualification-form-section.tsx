@@ -35,6 +35,8 @@ const insuranceOptions = [
 ];
 
 const formSchema = z.object({
+  firstName: z.string().min(1, "Please enter your first name"),
+  lastName: z.string().min(1, "Please enter your last name"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
   zipCode: z.string().min(5, "Please enter a valid zip code").max(10),
@@ -104,6 +106,8 @@ export function QualificationFormSection() {
     resolver: zodResolver(formSchema),
     mode: "onChange",
     defaultValues: {
+      firstName: "",
+      lastName: "",
       phone: "",
       email: "",
       zipCode: "",
@@ -125,6 +129,8 @@ export function QualificationFormSection() {
 
     const payload = {
       submittedAt: new Date().toISOString(),
+      firstName: data.firstName,
+      lastName: data.lastName,
       phone: data.phone,
       email: data.email,
       zipCode: data.zipCode,
@@ -501,6 +507,34 @@ export function QualificationFormSection() {
                       <p className="text-sm text-muted-foreground">
                         Last step. Enter your contact details so we can check provider availability in your area.
                       </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="firstName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-base text-foreground/80 font-medium">First Name</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Jane" type="text" autoComplete="given-name" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="lastName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-base text-foreground/80 font-medium">Last Name</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Smith" type="text" autoComplete="family-name" className="rounded-xl h-12 border-border/50 focus:border-primary focus:ring-primary" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <FormField
                           control={form.control}
